@@ -2,23 +2,17 @@
 
 set -e
 
-WORK_DIR=$PWD/../../../temp
-WGET_FILE=$PWD/wget-list-systemd
-cd $WORK_DIR
-LFS=$PWD/lfs
-VDISK_SIZE_GB=5
-VDISK_FILENAME=ferninux.img
-VDISK_LABEL=gpt
-VDISK_ROOT_PART=p2
 
+. ./set_env_vars.sh
 
-
+script_path=$PWD
 
 echo "creating LFS:($LFS) dir"
 mkdir -pv $WORK_DIR
+cd $WORK_DIR
 mkdir -pv $LFS
 
-cd $LFS
+
 if test -f "$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
@@ -47,13 +41,25 @@ fi
 echo "mounting root partition"
 mount -v -t ext4 "$disk_loop"p2 $LFS
 
+
+echo "creating directories"
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
+mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
 
-wget --input-file=$WGET_FILE --continue --directory-prefix=$LFS/sources
+for i in bin lib sbin; do
+    ln -sv usr/$i $LFS/$i
+done
+
+case $(uname -m) in
+    x86_64) mkdir -pv $LFS/lib64 ;;
+esac
+
+mkdir -pv $LFS/tools
 
 echo "cleaning"
 umount -v "$disk_loop"p2
 losetup --verbose -d $disk_loop
 
 
+cd $script_path
