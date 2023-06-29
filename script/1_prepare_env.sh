@@ -2,6 +2,7 @@
 
 set -e
 
+
 . ./set_env_vars.sh
 
 script_path=$PWD
@@ -10,6 +11,7 @@ echo "creating LFS:($LFS) dir"
 mkdir -pv $WORK_DIR
 cd $WORK_DIR
 mkdir -pv $LFS
+
 
 if test -f "$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
@@ -39,6 +41,7 @@ fi
 echo "mounting root partition"
 mount -v -t ext4 "$disk_loop"p2 $LFS
 
+
 echo "creating directories"
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
@@ -57,5 +60,6 @@ mkdir -pv $LFS/tools
 echo "cleaning"
 umount -v "$disk_loop"p2
 losetup --verbose -d $disk_loop
+
 
 cd $script_path
