@@ -1,7 +1,8 @@
 #!/bin/bash
 
 WORK_DIR=./workdir
-LFS=$WORK_DIR/lfs
+LFS_DIR=lfs
+LFS=$PWD/$WORK_DIR/$LFS_DIR
 
 VDISK_SIZE_GB=5
 VDISK_FILENAME=ferninux.img
