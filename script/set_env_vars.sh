@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORK_DIR=./workdir
+WORK_DIR=workdir
 LFS_DIR=lfs
 LFS=$PWD/$WORK_DIR/$LFS_DIR
 
@@ -9,4 +9,4 @@ VDISK_FILENAME=ferninux.img
 VDISK_LABEL=gpt
 VDISK_ROOT_PART=p2
 
-WGET_FILE=wget-list-systemd
+WGET_FILE=$PWD/wget-list-systemd
