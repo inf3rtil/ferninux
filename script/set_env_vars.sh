@@ -3,6 +3,7 @@
 WORK_DIR=workdir
 LFS_DIR=lfs
 LFS=$PWD/$WORK_DIR/$LFS_DIR
+LFS_USER=ferninux
 
 VDISK_SIZE_GB=5
 VDISK_FILENAME=ferninux.img
