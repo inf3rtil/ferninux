@@ -6,6 +6,10 @@ set -e
 
 device=$(mount | grep $LFS | cut -d ' ' -f1)
 echo "$device"
-umount -v $device
-losetup --verbose -D
+if [[ -n $device ]]; then
+    umount -v $device
+    losetup --verbose -D
+else
+    echo "no devices to umount"
+fi
 losetup
