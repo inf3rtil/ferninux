@@ -11,3 +11,5 @@ VDISK_LABEL=gpt
 VDISK_ROOT_PART=p2
 
 WGET_FILE=$PWD/wget-list-systemd
+
+MAKEFLAGS="-j16"
