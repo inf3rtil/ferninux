@@ -2,16 +2,29 @@
 
 set -e
 
-. ./set_env_vars.sh
-. ./setup_env.sh
+if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
+    echo "Env variables not found, probable solutions:"
+    echo "1 - source set_env_vars.sh"
+    exit 1
+fi
+
+if [[ $(whoami) != $LFS_USER ]]; then
+    echo "run this script as $LFS_USER user"
+    exit 1
+fi
 
 recipes=(
     binutils.sh
-    gcc.sh)
+    gcc.sh
+    linux_headers.sh
+    glibc.sh
+)
 
-CROSS_TOOLCHAIN_RECIPES=$PWD/cross_toolchain
+SCRIPT=$(realpath -s "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+
+CROSS_TOOLCHAIN_RECIPES=$SCRIPT_PATH/cross_toolchain
 SOURCES_ROOT_DIR=$LFS/sources
-MAKEFLAGS="-j16"
 
 cd $CROSS_TOOLCHAIN_RECIPES
 echo $CROSS_TOOLCHAIN_SOURCES
@@ -25,14 +38,12 @@ do
 	cd $SOURCES_ROOT_DIR/$SRC_FOLDER
 	eval "$PRE_BUILD"
 	eval "$BUILD_CMD"
+	eval "$POST_BUILD"
 	eval "$INSTALL_CMD"
+	eval "$POST_INSTALL"
 	rm -vrf $SOURCES_ROOT_DIR/$SRC_FOLDER
 	cd $CROSS_TOOLCHAIN_RECIPES
     else
         echo "File $file is not executable."
     fi
 done
-
-
-
-
