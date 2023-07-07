@@ -29,8 +29,8 @@ case $(uname -m) in
     x86_64) chown -v $LFS_USER $LFS/lib64 ;;
 esac
 
-su -c "cat > ~/.bash_profile << "EOF"
-exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+su -c "cat > ~/.bash_profile << 'EOF'
+exec env -i HOME=\$HOME TERM=\$TERM PS1='\u:\w\$ ' /bin/bash
 EOF" $LFS_USER
 
 su -c "cat ~/.bash_profile" $LFS_USER
