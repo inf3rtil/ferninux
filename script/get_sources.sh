@@ -1,6 +1,11 @@
 #!/bin/bash
 
-. ./set_env_vars.sh
-. ./setup_env.sh
+if [[ -z $ENV_VARS_EXPORTED ]]; then
+    echo "Env variables not found, probable solutions:"
+    echo "1 - source set_env_vars.sh"
+    echo "2 - use sudo -E flag"
+    exit 1
+fi
 
 wget --input-file=$WGET_FILE --continue --directory-prefix=$LFS/sources
+
