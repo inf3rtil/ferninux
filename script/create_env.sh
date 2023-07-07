@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ -z $ENV_VARS_EXPORTED ]]; then
+if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     echo "Env variables not found, probable solutions:"
     echo "1 - source set_env_vars.sh"
     echo "2 - use sudo -E flag"
@@ -12,7 +12,7 @@ fi
 disk=$WORK_DIR/$VDISK_FILENAME
 
 echo "creating LFS:($LFS) dir"
-mkdir -pv $WORK_DIR/$LFS
+mkdir -pv $WORK_DIR/$LFS_DIR
 
 if test -f "$WORK_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
