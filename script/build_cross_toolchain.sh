@@ -18,6 +18,9 @@ recipes=(
     gcc.sh
     linux_headers.sh
     glibc.sh
+    libstdc++.sh
+    m4.sh
+    ncurses.sh
 )
 
 SCRIPT=$(realpath -s "$0")
@@ -36,12 +39,8 @@ do
 	echo "extracting files from $file"
 	tar xfv $SOURCES_ROOT_DIR/$SRC_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
 	cd $SOURCES_ROOT_DIR/$SRC_FOLDER
-	eval "$PRE_BUILD"
-	eval "$BUILD_CMD"
-	eval "$POST_BUILD"
-	eval "$INSTALL_CMD"
-	eval "$POST_INSTALL"
-	rm -vrf $SOURCES_ROOT_DIR/$SRC_FOLDER
+	build_source_package
+	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
 	cd $CROSS_TOOLCHAIN_RECIPES
     else
         echo "File $file is not executable."
