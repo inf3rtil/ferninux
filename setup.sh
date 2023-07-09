@@ -3,8 +3,6 @@
 DIALOG_CANCEL=1
 DIALOG_ESC=255
 
-cd ./script
-
 while true; do
     exec 3>&1
     selection=$(dialog \
@@ -30,22 +28,22 @@ while true; do
     esac
     case $selection in
 	1 )
-	    ./create_env.sh
+	    ./script/create_env.sh
 	    ;;
 	2 )
-	    ./setup_env.sh
+	    ./script/setup_env.sh
 	    ;;
 	3 )
-	    ./add_lfs_user.sh
+	    ./script/add_lfs_user.sh
 	    ;;
 	4 )
-	    ./get_sources.sh
+	    ./script/get_sources.sh
 	    ;;
 	5 )
-	    ./umount_loop.sh
+	    ./script/umount_loop.sh
 	    ;;
 	6 )
-	    ./clean.sh
+	    ./script/clean.sh
 	    ;; 
     esac
     echo "Press any key to continue"

@@ -28,7 +28,3 @@ build_source_package(){
     echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
 }
     
-    
-    
-    
-

@@ -4,7 +4,8 @@ SRC_COMPRESSED_FILE=binutils-2.40.tar.xz
 SRC_FOLDER=binutils-2.40
 
 build_source_package() {
-    mkdir -pv build && cd build
+    mkdir -pv build
+    cd build
     ../configure --prefix=$LFS/tools \
 		 --with-sysroot=$LFS \
 		 --target=$LFS_TGT \

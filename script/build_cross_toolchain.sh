@@ -21,6 +21,21 @@ recipes=(
     libstdc++.sh
     m4.sh
     ncurses.sh
+    bash.sh
+    coreutils.sh
+    diffutils.sh
+    file.sh
+    findutils.sh
+    gawk.sh
+    grep.sh
+    gzip.sh
+    make.sh
+    patch.sh
+    sed.sh
+    tar.sh
+    xz.sh
+    binutils2.sh
+    gcc2.sh
 )
 
 SCRIPT=$(realpath -s "$0")
@@ -36,8 +51,8 @@ for file in "${recipes[@]}"
 do
     if [ -x "$file" ]; then
         . ./"$file"
-	echo "extracting files from $file"
-	tar xfv $SOURCES_ROOT_DIR/$SRC_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
+	echo "extracting files from $SRC_COMPRESSED_FILE"
+	tar xvf $SOURCES_ROOT_DIR/$SRC_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
 	cd $SOURCES_ROOT_DIR/$SRC_FOLDER
 	build_source_package
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
