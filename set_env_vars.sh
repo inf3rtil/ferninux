@@ -5,6 +5,8 @@ export WORK_DIR=$PWD/workdir
 export LFS_DIR=lfs
 export LFS=$WORK_DIR/$LFS_DIR
 export CHROOT_SCRIPTS_DIR=$PWD/script/chroot_scripts
+export BACKUP_DIR=$WORK_DIR/backup
+export BACKUP_FILE=lfs-11.3-systemd.tar.xz
 
 # User
 export LFS_USER=ferninux
