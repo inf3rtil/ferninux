@@ -21,7 +21,7 @@ esac
 mkdir -pv $LFS/{dev,proc,sys,run}
 
 mkdir -pv $LFS/script
-cp -pv $CHROOT_SCRIPTS_DIR/*.sh $LFS/script/
+cp -prv $CHROOT_SCRIPTS_DIR/* $LFS/script/
 
 mount -v --bind /dev $LFS/dev
 mount -v --bind /dev/pts $LFS/dev/pts
