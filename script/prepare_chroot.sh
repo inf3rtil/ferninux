@@ -28,6 +28,8 @@ mount -vt proc proc $LFS/proc
 mount -vt sysfs sysfs $LFS/sys
 mount -vt tmpfs tmpfs $LFS/run
 
+findmnt | grep $LFS
+
 chroot "$LFS" /usr/bin/env -i \
        HOME=/root \
        TERM="$TERM" \
@@ -35,4 +37,12 @@ chroot "$LFS" /usr/bin/env -i \
        PATH=/usr/bin:/usr/sbin \
        /bin/bash --login
 
-echo "exiting chroot"
+echo "unmounting virtual filesystem"
+umount -v $LFS/dev/pts
+umount -v $LFS/dev
+umount -v $LFS/proc
+umount -v $LFS/sys
+umount -v $LFS/run
+
+findmnt | grep $LFS
+
