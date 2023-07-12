@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+
 
 if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     echo "Env variables not found, probable solution:"
@@ -20,7 +20,8 @@ esac
 
 mkdir -pv $LFS/{dev,proc,sys,run}
 
-#cp needed scripts to $LFS/scripts
+mkdir -pv $LFS/script
+cp -pv $CHROOT_SCRIPTS_DIR/*.sh $LFS/script/
 
 mount -v --bind /dev $LFS/dev
 mount -v --bind /dev/pts $LFS/dev/pts

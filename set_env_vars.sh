@@ -4,6 +4,7 @@
 export WORK_DIR=$PWD/workdir
 export LFS_DIR=lfs
 export LFS=$WORK_DIR/$LFS_DIR
+export CHROOT_SCRIPTS_DIR=$PWD/script/chroot_scripts
 
 # User
 export LFS_USER=ferninux
