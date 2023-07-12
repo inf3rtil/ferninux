@@ -2,6 +2,11 @@
 
  A collection of scripts to make a linux system based on Linux From Scratch
 
+Build steps:
+prepare an isolated env
+compile a cross-toolchain
+enter chroot
+
 Scripts sequence
 
 source set_env_vars.sh
