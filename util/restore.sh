@@ -7,5 +7,5 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
 fi
 
 cd $LFS
-rm -rf ./*
-tar -xpf $BACKUP_DIR/$BACKUP_FILE
+rm -vrf ./*
+tar -xvpf $BACKUP_DIR/$BACKUP_FILE

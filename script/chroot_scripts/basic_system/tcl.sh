@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SRC_COMPRESSED_FILE=tcl8.6.13-src.tar.gz
-SRC_FOLDER=tcl8.6.13-src
+SRC_FOLDER=tcl8.6.13
 
 build_source_package(){
     SRCDIR=$(pwd)

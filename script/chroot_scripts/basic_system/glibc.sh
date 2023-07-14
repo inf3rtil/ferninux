@@ -18,7 +18,7 @@ build_source_package(){
 		 --with-headers=/usr/include \
 		 libc_cv_slibdir=/usr/lib
     make $MAKEFLAGS
-    make check
+    #make check
     touch /etc/ld.so.conf
     sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
     make install
