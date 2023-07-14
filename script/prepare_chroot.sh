@@ -36,6 +36,7 @@ chroot "$LFS" /usr/bin/env -i \
        TERM="$TERM" \
        PS1='(lfs chroot) \u:\w\$ ' \
        PATH=/usr/bin:/usr/sbin \
+       MAKEFLAGS=$MAKEFLAGS \
        /bin/bash --login
 
 echo "unmounting virtual filesystem"
