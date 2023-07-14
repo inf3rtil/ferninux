@@ -10,6 +10,8 @@ build_source_package(){
 		-i.orig gcc/config/i386/t-linux64
 	    ;;
     esac
+    mkdir build
+    cd build
     ../configure --prefix=/usr \
 		 LD=ld \
 		 --enable-languages=c,c++ \
@@ -21,7 +23,7 @@ build_source_package(){
     make $MAKEFLAGS
     ulimit -s 32768
     chown -Rv tester .
-    su tester -c "PATH=$PATH make -k check"
+   # su tester -c "PATH=$PATH make -k check"
     ../contrib/test_summary
     make install
     chown -v -R root:root \

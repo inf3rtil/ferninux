@@ -9,6 +9,6 @@ build_source_package(){
 		--docdir=/usr/share/doc/mpc-1.3.1
     make $MAKEFLAGS
     make install
-    make installl-html
+    make install-html
 }
 
