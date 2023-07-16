@@ -18,6 +18,8 @@ if test -f "$WORK_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
     disk_loop=$(losetup --partscan --show --verbose --find $disk)
+    root_part=$disk_loop$VDISK_ROOT_PART
+    boot_part=$disk_loop$VDISK_BOOT_PART
 else
     echo "$VDISK_FILENAME not found"
     
@@ -39,17 +41,18 @@ else
    # parted -s $disk set 1 esp on
     disk_loop=$(losetup --partscan --show --verbose --find $disk)
     root_part=$disk_loop$VDISK_ROOT_PART
+    boot_part=$disk_loop$VDISK_BOOT_PART
     echo "format boot partition"
-    mkfs.ext2 -v $disk_loop$VDISK_BOOT_PART
+    mkfs.ext2 -v $boot_part
 #    mkfs.vfat -v -F32 $disk_loop\p1
     echo "formate root partition as ext4"
     mkfs.ext4 -v $root_part
 fi
 
-echo "mounting root partition"
-mount -v -t ext4 "$disk_loop"p3 $LFS
+echo "mounting root partition "
+mount -v -t ext4 $root_part $LFS
 mkdir -pv $LFS/boot
-mount -v -t ext2 "$disk_loop"p2 $LFS/boot
+mount -v -t ext2 $boot_part $LFS/boot
 
 echo "creating directories"
 mkdir -pv $LFS/sources
@@ -66,8 +69,12 @@ esac
 
 mkdir -pv $LFS/tools
 
+echo $(blkid $disk_loop) > $WORK_DIR/diskinfo
+echo $(blkid $root_part) >> $WORK_DIR/diskinfo
+echo $(blkid $boot_part) >> $WORK_DIR/diskinfo
+
 echo "cleaning"
-umount -v "$disk_loop"p2
-umount -v "$disk_loop"p3
+umount -v $boot_part
+umount -v $root_part
 losetup --verbose -d $disk_loop
 
