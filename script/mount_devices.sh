@@ -17,7 +17,8 @@ if [[ -z $device ]]; then
 	echo "mounting loop device"
 	disk_loop=$(losetup --partscan --show --verbose --find $WORK_DIR/$VDISK_FILENAME)
 	echo "mounting root partition"
-	mount -v -t ext4 "$disk_loop"p2 $LFS
+	mount -v -t ext4 $disk_loop$VDISK_ROOT_PART $LFS
+	mount -v -t ext2 $disk_loop$VDISK_BOOT_PART $LFS/boot
     else
 	echo "$VDISK_FILENAME not found"
     fi
