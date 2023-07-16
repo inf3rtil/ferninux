@@ -9,9 +9,8 @@ cat > /boot/grub/grub.cfg << EOF
 set default=0
 set timeout=5
 insmod ext2
-set root=()
+search --set=root --fs-uuid=$BOOT_PART_UUID
 menuentry "GNU/Linux, Linux 6.1.11-lfs-11.3-systemd" {
-linux
- /boot/vmlinuz-6.1.11-lfs-11.3-systemd root=/dev/sda2 ro
+	  linux /vmlinuz-6.1.11-lfs-11.3-systemd root=PARTUUID=$ROOT_PART_PARTUUID ro
 }
 EOF
