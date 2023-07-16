@@ -36,6 +36,7 @@ chroot "$LFS" /usr/bin/env -i \
        PATH=/usr/bin:/usr/sbin \
        MAKEFLAGS=$MAKEFLAGS \
        $(cat $WORK_DIR/diskinfo) \
+       DISK_DEVICE=$(losetup -j $WORK_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
        /bin/bash --login
 
 echo "unmounting virtual filesystem"
