@@ -69,9 +69,9 @@ esac
 
 mkdir -pv $LFS/tools
 
-echo $(blkid $disk_loop) > $WORK_DIR/diskinfo
-echo $(blkid $root_part) >> $WORK_DIR/diskinfo
-echo $(blkid $boot_part) >> $WORK_DIR/diskinfo
+echo "ROOT_PART_UUID=$(blkid -o value -s UUID $root_part)" > $WORK_DIR/diskinfo
+echo "ROOT_PART_PARTUUID=$(blkid -o value -s PARTUUID $root_part)" >> $WORK_DIR/diskinfo
+echo "BOOT_PART_UUID=$(blkid -o value -s UUID $boot_part)" >> $WORK_DIR/diskinfo
 
 echo "cleaning"
 umount -v $boot_part
