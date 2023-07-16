@@ -18,3 +18,4 @@ else
     echo "no devices to umount"
 fi
 losetup
+#fix search for loop and unmount

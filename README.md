@@ -1,26 +1,21 @@
 # Ferninux
 
- A collection of scripts to make a linux system based on Linux From Scratch
+## Description
+This project contains scripts and tools to create a raw disk image with a fully functional linux system, based on Linux From Scratch Project
+***
+## Prepare the env
 
-Build steps:
-prepare an isolated env
-compile a cross-toolchain
-enter chroot
+Every time you want to use the project, change the env variables to your custom values in `set_env_vars.sh` and apply to the shell using `source`
 
-Scripts sequence
+`~$source set_env_vars.sh`
 
-source set_env_vars.sh
+Theres two ways of execute the scripts, use root account (sourcing set_env_vars.sh) or `sudo -E script...`
 
-as root or using sudo -E
+Create a raw disk image with the partitions needed:
 
-create an env:
-script/create_env.sh
+`script/create_env.sh`
 
-prepare to use an existing env
-script/setup_env.sh
+Create a user to build temporary tools
 
-donwload source code from LFS
-script/get_sources.sh
+`script/add_lfs_user.sh`
 
-unmount env
-script/umount_loop.sh
