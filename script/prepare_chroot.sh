@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     echo "Env variables not found, probable solution:"
     echo "1 - source set_env_vars.sh"
@@ -37,6 +35,7 @@ chroot "$LFS" /usr/bin/env -i \
        PS1='(lfs chroot) \u:\w\$ ' \
        PATH=/usr/bin:/usr/sbin \
        MAKEFLAGS=$MAKEFLAGS \
+       $(cat $WORK_DIR/diskinfo) \
        /bin/bash --login
 
 echo "unmounting virtual filesystem"
