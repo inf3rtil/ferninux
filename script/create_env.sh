@@ -20,27 +20,36 @@ if test -f "$WORK_DIR/$VDISK_FILENAME"; then
     disk_loop=$(losetup --partscan --show --verbose --find $disk)
 else
     echo "$VDISK_FILENAME not found"
+    
     echo "creating virtual disk image: $VDISK_FILENAME file"
     dd if=/dev/zero of=$disk bs=1G count=$VDISK_SIZE_GB status=progress
-    
+
     echo "creating $VDISK_LABEL label on $VDISK_FILENAME"
     parted -s $disk mklabel $VDISK_LABEL
+
+    echo "creating BIOS boot partition on $VDISK_FILENAME"
+    parted -s $disk mkpart primary 1 2
+    parted -s $disk set 1 bios_grub on
+    
     echo "creating boot partition on $VDISK_FILENAME"
-    parted -s $disk mkpart boot fat32 1Mib 512Mib
+    parted -s $disk mkpart boot ext2 2Mib 512Mib
     echo "creating root partition on $VDISK_FILENAME"
     parted -s $disk mkpart root ext4 512Mib 100%
-    echo "set esp flag on boot partition"
-    parted -s $disk set 1 esp on
+   # echo "set esp flag on boot partition"
+   # parted -s $disk set 1 esp on
     disk_loop=$(losetup --partscan --show --verbose --find $disk)
     root_part=$disk_loop$VDISK_ROOT_PART
-    echo "format boot partition as FAT32"
-    mkfs.vfat -v -F32 $disk_loop\p1
+    echo "format boot partition"
+    mkfs.ext2 -v $disk_loop$VDISK_BOOT_PART
+#    mkfs.vfat -v -F32 $disk_loop\p1
     echo "formate root partition as ext4"
     mkfs.ext4 -v $root_part
 fi
 
 echo "mounting root partition"
-mount -v -t ext4 "$disk_loop"p2 $LFS
+mount -v -t ext4 "$disk_loop"p3 $LFS
+mkdir -pv $LFS/boot
+mount -v -t ext2 "$disk_loop"p2 $LFS/boot
 
 echo "creating directories"
 mkdir -pv $LFS/sources
@@ -59,5 +68,6 @@ mkdir -pv $LFS/tools
 
 echo "cleaning"
 umount -v "$disk_loop"p2
+umount -v "$disk_loop"p3
 losetup --verbose -d $disk_loop
 
