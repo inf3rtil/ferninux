@@ -24,11 +24,6 @@ else
     passwd $LFS_USER
 fi
 
-chown -v $LFS_USER $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
-case $(uname -m) in
-    x86_64) chown -v $LFS_USER $LFS/lib64 ;;
-esac
-
 su -c "cat > ~/.bash_profile << 'EOF'
 exec env -i HOME=\$HOME TERM=\$TERM PS1='\u:\w\$ ' /bin/bash
 EOF" $LFS_USER
@@ -50,3 +45,29 @@ export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 EOF" $LFS_USER
 
 su -c "cat ~/.bashrc" $LFS_USER
+
+if test -f "$WORK_DIR/$VDISK_FILENAME"; then
+    echo "$VDISK_FILENAME found"
+    echo "mounting loop device"
+    disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
+    root_part=$disk_loop$VDISK_ROOT_PART
+    boot_part=$disk_loop$VDISK_BOOT_PART
+
+    echo "mounting root partition "
+    mount -v -t ext4 $root_part $LFS_DIR
+    mount -v -t ext2 $boot_part $LFS_DIR/boot    
+    
+    chown -v $LFS_USER $LFS_DIR/{usr{,/*},lib,var,etc,bin,sbin,tools}
+    case $(uname -m) in
+	x86_64) chown -v $LFS_USER $LFS_DIR/lib64 ;;
+    esac
+
+    umount -v $boot_part
+    umount -v $root_part
+    losetup --verbose -d $disk_loop
+else
+    echo "$VDISK_FILENAME not found"
+    echo "Please create env with the Create Env Devices option"
+fi
+
+
