@@ -6,7 +6,7 @@ export LFS_DIR=lfs
 export LFS=$WORK_DIR/$LFS_DIR
 export CHROOT_SCRIPTS_DIR=$PWD/script/chroot_scripts
 export BACKUP_DIR=$WORK_DIR/backup
-export BACKUP_FILE=lfs-11.3-systemd_kernel.tar.xz
+export BACKUP_FILE=ferninux_backup.tar.xz
 
 # User
 export LFS_USER=ferninux
@@ -20,10 +20,13 @@ export VDISK_BOOT_PART=p2
 export VDISK_ROOT_PART=p3
 export VDISK_SWAP_PART=p4
 
-# Donwload
+# Download
 export WGET_FILE=script/wget-list-systemd
 
 # Build
 export MAKEFLAGS="-j16"
-
 export ENV_VARS_EXPORTED=1
+
+# Config
+export USE_UEFI=0
+export INIT_SYSTEM=systemd
