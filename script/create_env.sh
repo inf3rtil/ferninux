@@ -11,13 +11,16 @@ fi
 
 disk=$WORK_DIR/$VDISK_FILENAME
 
-echo "creating LFS:($LFS) dir"
-mkdir -pv $WORK_DIR/$LFS_DIR
+echo "creating directories"
+mkdir -pv $BUILD_DIR
+mkdir -pv $LFS
+mkdir -pv $BACKUP_DIR
+mkdir -pv $DOWNLOAD_DIR
 
 if test -f "$WORK_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
-    disk_loop=$(losetup --partscan --show --verbose --find $disk)
+    disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
     root_part=$disk_loop$VDISK_ROOT_PART
     boot_part=$disk_loop$VDISK_BOOT_PART
 else
@@ -69,9 +72,10 @@ esac
 
 mkdir -pv $LFS/tools
 
-echo "ROOT_PART_UUID=$(blkid -o value -s UUID $root_part)" > $WORK_DIR/diskinfo
-echo "ROOT_PART_PARTUUID=$(blkid -o value -s PARTUUID $root_part)" >> $WORK_DIR/diskinfo
-echo "BOOT_PART_UUID=$(blkid -o value -s UUID $boot_part)" >> $WORK_DIR/diskinfo
+echo "writing disk info"
+echo "ROOT_PART_UUID=$(blkid -o value -s UUID $root_part)" > $BUILD_DIR/diskinfo
+echo "ROOT_PART_PARTUUID=$(blkid -o value -s PARTUUID $root_part)" >> $BUILD_DIR/diskinfo
+echo "BOOT_PART_UUID=$(blkid -o value -s UUID $boot_part)" >> $BUILD_DIR/diskinfo
 
 echo "cleaning"
 umount -v $boot_part

@@ -7,6 +7,13 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-cp -rp $WORK_DIR/sources/* $LFS/sources/  
-#wget --input-file=$WGET_FILE --continue --directory-prefix=$LFS/sources
+wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
+
+pushd $DOWNLOAD_DIR
+  md5sum -c $CHECKSUM_FILE
+popd
+
+mkdir -pv $LFS/sources
+chmod -v a+wt $LFS/sources
+cp -rv $DOWNLOAD_DIR/* $LFS/sources/
 
