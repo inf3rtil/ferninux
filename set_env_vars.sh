@@ -22,7 +22,6 @@ export VDISK_ROOT_PART=p3
 export VDISK_SWAP_PART=p4
 export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 
-
 # Download
 export WGET_FILE=$WORK_DIR/script/wget-list-systemd
 export CHECKSUM_FILE=$WORK_DIR/script/sources_md5

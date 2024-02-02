@@ -24,11 +24,6 @@ else
     passwd $LFS_USER
 fi
 
-chown -v $LFS_USER $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
-case $(uname -m) in
-    x86_64) chown -v $LFS_USER $LFS/lib64 ;;
-esac
-
 su -c "cat > ~/.bash_profile << 'EOF'
 exec env -i HOME=\$HOME TERM=\$TERM PS1='\u:\w\$ ' /bin/bash
 EOF" $LFS_USER

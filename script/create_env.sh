@@ -9,8 +9,6 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     exit 1
 fi
 
-disk=$WORK_DIR/$VDISK_FILENAME
-
 echo "creating directories"
 mkdir -pv $BUILD_DIR
 mkdir -pv $LFS
@@ -27,22 +25,22 @@ else
     echo "$VDISK_FILENAME not found"
     
     echo "creating virtual disk image: $VDISK_FILENAME file"
-    dd if=/dev/zero of=$disk bs=1G count=$VDISK_SIZE_GB status=progress
+    dd if=/dev/zero of=$VDISK_PATH bs=1G count=$VDISK_SIZE_GB status=progress
 
     echo "creating $VDISK_LABEL label on $VDISK_FILENAME"
-    parted -s $disk mklabel $VDISK_LABEL
+    parted -s $VDISK_PATH mklabel $VDISK_LABEL
 
     echo "creating BIOS boot partition on $VDISK_FILENAME"
-    parted -s $disk mkpart primary 1 2
-    parted -s $disk set 1 bios_grub on
+    parted -s $VDISK_PATH mkpart primary 1 2
+    parted -s $VDISK_PATH set 1 bios_grub on
     
     echo "creating boot partition on $VDISK_FILENAME"
-    parted -s $disk mkpart boot ext2 2Mib 512Mib
+    parted -s $VDISK_PATH mkpart boot ext2 2Mib 512Mib
     echo "creating root partition on $VDISK_FILENAME"
-    parted -s $disk mkpart root ext4 512Mib 100%
+    parted -s $VDISK_PATH mkpart root ext4 512Mib 100%
    # echo "set esp flag on boot partition"
-   # parted -s $disk set 1 esp on
-    disk_loop=$(losetup --partscan --show --verbose --find $disk)
+   # parted -s $VDISK_PATH set 1 esp on
+    disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
     root_part=$disk_loop$VDISK_ROOT_PART
     boot_part=$disk_loop$VDISK_BOOT_PART
     echo "format boot partition"
@@ -53,24 +51,24 @@ else
 fi
 
 echo "mounting root partition "
-mount -v -t ext4 $root_part $LFS
-mkdir -pv $LFS/boot
-mount -v -t ext2 $boot_part $LFS/boot
+mount -v -t ext4 $root_part $LFS_DIR
+mkdir -pv $LFS_DIR/boot
+mount -v -t ext2 $boot_part $LFS_DIR/boot
 
 echo "creating directories"
-mkdir -pv $LFS/sources
-chmod -v a+wt $LFS/sources
-mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
+mkdir -pv $LFS_DIR/sources
+chmod -v a+wt $LFS_DIR/sources
+mkdir -pv $LFS_DIR/{etc,var} $LFS_DIR/usr/{bin,lib,sbin}
 
 for i in bin lib sbin; do
-    ln -sv usr/$i $LFS/$i
+    ln -sv usr/$i $LFS_DIR/$i
 done
 
 case $(uname -m) in
-    x86_64) mkdir -pv $LFS/lib64 ;;
+    x86_64) mkdir -pv $LFS_DIR/lib64 ;;
 esac
 
-mkdir -pv $LFS/tools
+mkdir -pv $LFS_DIR/tools
 
 echo "writing disk info"
 echo "ROOT_PART_UUID=$(blkid -o value -s UUID $root_part)" > $BUILD_DIR/diskinfo
