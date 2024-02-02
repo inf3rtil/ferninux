@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=gawk-5.2.1.tar.xz
-SRC_FOLDER=gawk-5.2.1
+SRC_COMPRESSED_FILE=gawk-5.2.2.tar.xz
+SRC_FOLDER=gawk-5.2.2
 
 build_source_package(){
     sed -i 's/extras//' Makefile.in

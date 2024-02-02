@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=binutils-2.40.tar.xz
-SRC_FOLDER=binutils-2.40
+SRC_COMPRESSED_FILE=binutils-2.41.tar.xz
+SRC_FOLDER=binutils-2.41
 
 build_source_package() {
     mkdir -pv build

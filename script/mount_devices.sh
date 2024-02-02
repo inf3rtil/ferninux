@@ -10,11 +10,11 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 device=$(mount | grep $LFS | cut -d ' ' -f1)
-disk_loop=$(losetup -j $WORK_DIR/$VDISK_FILENAME | cut -d ':' -f1)
+disk_loop=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1)
 if [[ -z $device ]]; then
-    if test -f "$WORK_DIR/$VDISK_FILENAME"; then
+    if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
 	if [[ -z $disk_loop ]]; then
-	    disk_loop=$(losetup --partscan --show --verbose --find $WORK_DIR/$VDISK_FILENAME)
+	    disk_loop=$(losetup --partscan --show --verbose --find $BUILD_DIR/$VDISK_FILENAME)
 	fi
 	mount -v -t ext4 $disk_loop$VDISK_ROOT_PART $LFS
 	mount -v -t ext2 $disk_loop$VDISK_BOOT_PART $LFS/boot

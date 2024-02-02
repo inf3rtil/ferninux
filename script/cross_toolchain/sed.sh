@@ -5,7 +5,8 @@ SRC_FOLDER=sed-4.9
 
 build_source_package(){
     ./configure --prefix=/usr \
-		--host=$LFS_TGT
+		--host=$LFS_TGT \
+		--build=$(./build-aux/config.guess)
     make $MAKEFLAGS
     make DESTDIR=$LFS install
 }
