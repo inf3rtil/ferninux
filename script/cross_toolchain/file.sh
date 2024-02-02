@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=file-5.44.tar.gz
-SRC_FOLDER=file-5.44
+SRC_COMPRESSED_FILE=file-5.45.tar.gz
+SRC_FOLDER=file-5.45
 
 build_source_package(){
     mkdir build

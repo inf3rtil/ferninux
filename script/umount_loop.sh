@@ -30,5 +30,6 @@ else
     echo "no loop devices found"
 fi
 
+losetup -D
 losetup
 echo "done"

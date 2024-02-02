@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=tar-1.34.tar.xz
-SRC_FOLDER=tar-1.34
+SRC_COMPRESSED_FILE=tar-1.35.tar.xz
+SRC_FOLDER=tar-1.35
 
 build_source_package(){
     ./configure --prefix=/usr \

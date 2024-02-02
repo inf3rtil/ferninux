@@ -15,7 +15,7 @@ mkdir -pv $LFS
 mkdir -pv $BACKUP_DIR
 mkdir -pv $DOWNLOAD_DIR
 
-if test -f "$WORK_DIR/$VDISK_FILENAME"; then
+if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
     disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
@@ -51,24 +51,22 @@ else
 fi
 
 echo "mounting root partition "
-mount -v -t ext4 $root_part $LFS_DIR
-mkdir -pv $LFS_DIR/boot
-mount -v -t ext2 $boot_part $LFS_DIR/boot
+mount -v -t ext4 $root_part $LFS
+mkdir -pv $LFS/boot
+mount -v -t ext2 $boot_part $LFS/boot
 
 echo "creating directories"
-mkdir -pv $LFS_DIR/sources
-chmod -v a+wt $LFS_DIR/sources
-mkdir -pv $LFS_DIR/{etc,var} $LFS_DIR/usr/{bin,lib,sbin}
+mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
 
 for i in bin lib sbin; do
-    ln -sv usr/$i $LFS_DIR/$i
+    ln -sv usr/$i $LFS/$i
 done
 
 case $(uname -m) in
-    x86_64) mkdir -pv $LFS_DIR/lib64 ;;
+    x86_64) mkdir -pv $LFS/lib64 ;;
 esac
 
-mkdir -pv $LFS_DIR/tools
+mkdir -pv $LFS/tools
 
 echo "writing disk info"
 echo "ROOT_PART_UUID=$(blkid -o value -s UUID $root_part)" > $BUILD_DIR/diskinfo

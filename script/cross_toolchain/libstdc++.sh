@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=gcc-12.2.0.tar.xz
-SRC_FOLDER=gcc-12.2.0
+SRC_COMPRESSED_FILE=gcc-13.2.0.tar.xz
+SRC_FOLDER=gcc-13.2.0
 
 build_source_package(){
     mkdir -pv build
@@ -13,7 +13,7 @@ build_source_package(){
 	--disable-multilib \
 	--disable-nls \
 	--disable-libstdcxx-pch \
-	--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/12.2.0
+	--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/13.2.0
     make $MAKEFLAGS
     make DESTDIR=$LFS install
     rm -v $LFS/usr/lib/lib{stdc++,stdc++fs,supc++}.la

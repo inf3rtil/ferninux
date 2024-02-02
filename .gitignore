@@ -1,4 +1,5 @@
 *~
 \#*\#
 *.img
-workdir/
+build/
+downloads/
