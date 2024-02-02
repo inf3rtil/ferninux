@@ -7,7 +7,8 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     exit 1
 fi
 
-cd $WORK_DIR
 losetup -D
-rm -rf ./*.img
-rm -rf ./lfs
+rm -rfv $BUILD_DIR
+rm -rfv $DOWNLOAD_DIR
+rm -rfv $BACKUP_DIR
+userdel $LFS_USER

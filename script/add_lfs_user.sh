@@ -46,7 +46,7 @@ EOF" $LFS_USER
 
 su -c "cat ~/.bashrc" $LFS_USER
 
-if test -f "$WORK_DIR/$VDISK_FILENAME"; then
+if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
     disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
@@ -54,12 +54,12 @@ if test -f "$WORK_DIR/$VDISK_FILENAME"; then
     boot_part=$disk_loop$VDISK_BOOT_PART
 
     echo "mounting root partition "
-    mount -v -t ext4 $root_part $LFS_DIR
-    mount -v -t ext2 $boot_part $LFS_DIR/boot    
+    mount -v -t ext4 $root_part $LFS
+    mount -v -t ext2 $boot_part $LFS/boot    
     
-    chown -v $LFS_USER $LFS_DIR/{usr{,/*},lib,var,etc,bin,sbin,tools}
+    chown -v $LFS_USER $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
     case $(uname -m) in
-	x86_64) chown -v $LFS_USER $LFS_DIR/lib64 ;;
+	x86_64) chown -v $LFS_USER $LFS/lib64 ;;
     esac
 
     umount -v $boot_part
