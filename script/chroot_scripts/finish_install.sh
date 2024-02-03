@@ -2,22 +2,25 @@
 
 set -e
 
-echo 11.3-systemd > /etc/lfs-release
+echo 12.0-systemd > /etc/lfs-release
+
 
 cat > /etc/lsb-release << "EOF"
 DISTRIB_ID="Linux From Scratch"
-DISTRIB_RELEASE="11.3-systemd"
-DISTRIB_CODENAME="ferninux"
+DISTRIB_RELEASE="12.0-systemd"
+DISTRIB_CODENAME="<your name here>"
 DISTRIB_DESCRIPTION="Linux From Scratch"
 EOF
 
 cat > /etc/os-release << "EOF"
 NAME="Linux From Scratch"
-VERSION="11.3-systemd"
+VERSION="12.0-systemd"
 ID=lfs
-PRETTY_NAME="Linux From Scratch 11.3-systemd"
-VERSION_CODENAME="ffs"
+PRETTY_NAME="Linux From Scratch 12.0-systemd"
+VERSION_CODENAME="ferninux"
 EOF
+
+passwd root
 
 file_list=(
  /etc/bashrc
@@ -32,6 +35,8 @@ file_list=(
  /root/.bashrc
 )
 
+cd /
+
 for file in "${file_list[@]}"
 do
     if [ -e "$file" ]; then
@@ -43,5 +48,5 @@ do
     fi
 done
 
-echo "system OK, enjoy!"
+echo "system OK, reboot and have fun!"
 
