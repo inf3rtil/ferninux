@@ -11,11 +11,30 @@ Every time you want to use the project, change the env variables to your custom 
 
 Theres two ways of execute the scripts, use root account (sourcing set_env_vars.sh) or `sudo -E script...`
 
-Create a raw disk image with the partitions needed:
+## 1 - Create a raw disk image with the partitions needed:
 
-`script/create_env.sh`
+`util/create_env.sh`
 
-Create a user to build temporary tools
+## 2 - Create a user to build temporary tools
 
-`script/add_lfs_user.sh`
+`util/add_lfs_user.sh`
 
+## 3 - Download the sources
+
+`util/get_sources.sh`
+
+## 4 - Build Cross Toolchain (as lfs user)
+
+`script/build_cross_toolchain.sh`
+
+## 5 - Enter chroot
+
+`util/enter_chroot.sh`
+
+## 6 - Build entire system
+
+`ferninux.sh`
+
+## 7 - Exit chroot, and start a qemu vm with your new linux
+
+`util/start_qemu.sh`
