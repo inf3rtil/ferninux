@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=MarkupSafe-2.1.2.tar.gz 
-SRC_FOLDER=MarkupSafe-2.1.2
+SRC_COMPRESSED_FILE=MarkupSafe-2.1.3.tar.gz 
+SRC_FOLDER=MarkupSafe-2.1.3
 
 build_source_package(){
     pip3 wheel -w dist --no-build-isolation --no-deps $PWD

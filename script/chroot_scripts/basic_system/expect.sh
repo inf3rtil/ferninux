@@ -10,6 +10,7 @@ build_source_package(){
 		--mandir=/usr/share/man \
 		--with-tclinclude=/usr/include
     make $MAKEFLAGS
+    make test
     make install
     ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib
 }

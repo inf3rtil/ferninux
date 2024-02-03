@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=less-608.tar.gz
-SRC_FOLDER=less-608
+SRC_COMPRESSED_FILE=less-643.tar.gz
+SRC_FOLDER=less-643
 
 build_source_package(){
     ./configure --prefix=/usr --sysconfdir=/etc

@@ -1,24 +1,24 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=glibc-2.37.tar.xz
-SRC_FOLDER=glibc-2.37
+SRC_COMPRESSED_FILE=glibc-2.38.tar.xz
+SRC_FOLDER=glibc-2.38
 
 build_source_package(){
-    patch -Np1 -i ../glibc-2.37-fhs-1.patch
-    sed '/width -=/s/workend - string/number_length/' \
-	-i stdio-common/vfprintf-process-arg.c
+    patch -Np1 -i ../glibc-2.38-fhs-1.patch
+    patch -Np1 -i ../glibc-2.38-memalign_fix-1.patch
     mkdir -v build
     cd build
     echo "rootsbindir=/usr/sbin" > configparms
 
     ../configure --prefix=/usr \
 		 --disable-werror \
-		 --enable-kernel=3.2 \
+		 --enable-kernel=4.14 \
 		 --enable-stack-protector=strong \
 		 --with-headers=/usr/include \
 		 libc_cv_slibdir=/usr/lib
     make $MAKEFLAGS
-    #make check
+    echo "Running tests..."
+    make check -i > /build_log/glibc.test
     touch /etc/ld.so.conf
     sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
     make install
@@ -67,7 +67,7 @@ build_source_package(){
     make localedata/install-locales
 
     localedef -i POSIX -f UTF-8 C.UTF-8 2> /dev/null || true
-    localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2> /dev/null || true
+
 
     cat > /etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf
@@ -83,7 +83,7 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
-    tar -xf ../../tzdata2022g.tar.gz
+    tar -xf ../../tzdata2023c.tar.gz
     ZONEINFO=/usr/share/zoneinfo
     mkdir -pv $ZONEINFO/{posix,right}
     for tz in etcetera southamerica northamerica europe africa antarctica \
