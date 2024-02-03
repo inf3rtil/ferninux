@@ -1,13 +1,14 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=gmp-6.2.1.tar.xz
-SRC_FOLDER=gmp-6.2.1
+SRC_COMPRESSED_FILE=gmp-6.3.0.tar.xz
+SRC_FOLDER=gmp-6.3.0
 
 build_source_package(){
     ./configure --prefix=/usr \
 		--enable-cxx \
 		--disable-static \
-		--docdir=/usr/share/doc/gmp-6.2.1
+		--host=none-linux-gnu \
+		--docdir=/usr/share/doc/gmp-6.3.0
     make $MAKEFLAGS
     make html
     make check 2>&1 | tee gmp-check-log

@@ -2,6 +2,7 @@
 
 set -e
 
+
 recipes=(
     man-pages.sh
     iana-etc.sh
@@ -25,9 +26,10 @@ recipes=(
     attr.sh
     acl.sh
     libcap.sh
+    libxcrypt.sh
     shadow.sh
     gcc.sh
-    pkg-config.sh
+    pkgconf.sh
     ncurses.sh
     sed.sh
     psmisc.sh
@@ -51,6 +53,7 @@ recipes=(
     libelf-elfutils.sh
     libffi.sh
     python.sh
+    flit-core.sh
     wheel.sh
     ninja.sh
     meson.sh
@@ -85,6 +88,8 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 
 RECIPES_DIR=$SCRIPT_PATH/basic_system
 SOURCES_ROOT_DIR=/sources
+
+mkdir -p /build_log
 
 cd $RECIPES_DIR
 

@@ -12,8 +12,10 @@ mkdir -pv /usr/{,local/}share/{misc,terminfo,zoneinfo}
 mkdir -pv /usr/{,local/}share/man/man{1..8}
 mkdir -pv /var/{cache,local,log,mail,opt,spool}
 mkdir -pv /var/lib/{color,misc,locate}
+
 ln -sfv /run /var/run
 ln -sfv /run/lock /var/lock
+
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
 

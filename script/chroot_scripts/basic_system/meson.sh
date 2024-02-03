@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=meson-1.0.0.tar.gz
-SRC_FOLDER=meson-1.0.0
+SRC_COMPRESSED_FILE=meson-1.2.1.tar.gz
+SRC_FOLDER=meson-1.2.1
 
 build_source_package(){
     pip3 wheel -w dist --no-build-isolation --no-deps $PWD

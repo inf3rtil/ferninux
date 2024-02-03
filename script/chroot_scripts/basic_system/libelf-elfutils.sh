@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SRC_COMPRESSED_FILE=elfutils-0.188.tar.bz2
-SRC_FOLDER=elfutils-0.188
+SRC_COMPRESSED_FILE=elfutils-0.189.tar.bz2
+SRC_FOLDER=elfutils-0.189
 
 build_source_package(){
     ./configure --prefix=/usr \
