@@ -6,4 +6,4 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     exit 1
 fi
 
-qemu-system-x86_64 -drive format=raw,file=$WORK_DIR/$VDISK_FILENAME -vga std
+qemu-system-x86_64 -drive format=raw,file=$BUILD_DIR/$VDISK_FILENAME -vga virtio
