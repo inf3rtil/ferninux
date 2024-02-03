@@ -11,7 +11,7 @@ if [[ $(whoami) != "root" ]]; then
     exit 1
 fi
 
-$WORK_DIR/script/mount_devices.sh
+$WORK_DIR/util/mount_devices.sh
 
 chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
 case $(uname -m) in
@@ -56,7 +56,7 @@ umount -v $LFS/proc
 umount -v $LFS/sys
 umount -v $LFS/run
 
-$WORK_DIR/script/umount_devices.sh
+$WORK_DIR/util/umount_devices.sh
 
 findmnt | grep $LFS
 
