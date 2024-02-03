@@ -7,6 +7,8 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
+$WORK_DIR/util/mount_devices.sh
+
 wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
 
 pushd $DOWNLOAD_DIR
@@ -17,3 +19,4 @@ mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
 cp -rv $DOWNLOAD_DIR/* $LFS/sources/
 
+$WORK_DIR/util/umount_devices.sh
