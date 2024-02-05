@@ -1,5 +1,16 @@
 #!/bin/bash
 
+cat > /etc/systemd/network/10-eth-dhcp.network << "EOF"
+[Match]
+Type=ether
+
+[Network]
+DHCP=ipv4
+
+[DHCPv4]
+UseDomains=true
+EOF
+
 cat > /etc/hosts << "EOF"
 # Begin /etc/hosts
 

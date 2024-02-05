@@ -87,3 +87,10 @@ https://www.linuxfromscratch.org/patches/lfs/12.0/glibc-2.38-fhs-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.0/grub-2.06-upstream_fixes-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.0/kbd-2.6.1-backspace-1.patch
 https://www.linuxfromscratch.org/patches/lfs/12.0/readline-8.2-upstream_fix-1.patch
+https://github.com/rhboot/efivar/releases/download/38/efivar-38.tar.bz2
+https://www.linuxfromscratch.org/patches/blfs/12.0/efivar-38-i686-1.patch
+https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz
+http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
+https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz
+https://downloads.sourceforge.net/freetype/freetype-2.13.1.tar.xz
+https://unifoundry.com/pub/unifont/unifont-15.0.06/font-builds/unifont-15.0.06.pcf.gz
