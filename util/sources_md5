@@ -87,3 +87,9 @@ d83d6f64a64f88759e312b8a38c3add6  xz-5.4.4.tar.xz
 da388905710bb4cbfbc7bd7346ff9174  grub-2.06-upstream_fixes-1.patch
 f75cca16a38da6caa7d52151f7136895  kbd-2.6.1-backspace-1.patch
 dd1764b84cfca6b677f44978218a75da  readline-8.2-upstream_fix-1.patch
+243fdbc48440212695cb9c6e6fd0f44f  efivar-38.tar.bz2
+f0adf24e8fdef5f3e332191f653e422a  mandoc-1.14.6.tar.gz
+eaa2135fddb6eb03f2c87ee1823e5a78  popt-1.19.tar.gz
+e170147da25e1d5f72721ffc46fe4e06  efibootmgr-18.tar.gz
+e4c3f0d8453a2a7993ae784912d6f19a  freetype-2.13.1.tar.xz
+94ff8cb4d5674cd2f38b00cede5e06d5  unifont-15.0.06.pcf.gz
