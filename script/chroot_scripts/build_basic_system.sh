@@ -2,86 +2,84 @@
 
 set -e
 
+declare -a recipes=()
+recipes+=(man-pages.sh)
+recipes+=(iana-etc.sh)
+recipes+=(glibc.sh)
+recipes+=(zlib.sh)
+recipes+=(bzip2.sh)
+recipes+=(xz.sh)
+recipes+=(zstd.sh)
+recipes+=(file.sh)
+recipes+=(readline.sh)
+recipes+=(m4.sh)
+recipes+=(bc.sh)
+recipes+=(flex.sh)
+recipes+=(tcl.sh)
+recipes+=(expect.sh)
+recipes+=(dejagnu.sh)
+recipes+=(binutils.sh)
+recipes+=(gmp.sh)
+recipes+=(mpfr.sh)
+recipes+=(mpc.sh)
+recipes+=(attr.sh)
+recipes+=(acl.sh)
+recipes+=(libcap.sh)
+recipes+=(libxcrypt.sh)
+recipes+=(shadow.sh)
+recipes+=(gcc.sh)
+recipes+=(pkgconf.sh)
+recipes+=(ncurses.sh)
+recipes+=(sed.sh)
+recipes+=(psmisc.sh)
+recipes+=(gettext.sh)
+recipes+=(bison.sh)
+recipes+=(grep.sh)
+recipes+=(bash.sh)
+recipes+=(libtool.sh)
+recipes+=(gdbm.sh)
+recipes+=(gperf.sh)
+recipes+=(expat.sh)
+recipes+=(inetutils.sh)
+recipes+=(less.sh)
+recipes+=(perl.sh)
+recipes+=(xml-parser.sh)
+recipes+=(intltool.sh)
+recipes+=(autoconf.sh)
+recipes+=(automake.sh)
+recipes+=(openssl.sh)
+recipes+=(kmod.sh)
+recipes+=(libelf-elfutils.sh)
+recipes+=(libffi.sh)
+recipes+=(python.sh)
+recipes+=(flit-core.sh)
+recipes+=(wheel.sh)
+recipes+=(ninja.sh)
+recipes+=(meson.sh)
+recipes+=(coreutils.sh)
+recipes+=(check.sh)
+recipes+=(diffutils.sh)
+recipes+=(gawk.sh)
+recipes+=(findutils.sh)
+recipes+=(groff.sh)
+recipes+=(gzip.sh)
+recipes+=(iproute.sh)
+recipes+=(kbd.sh)
+recipes+=(libpipeline.sh)
+recipes+=(make.sh)
+recipes+=(patch.sh)
+recipes+=(tar.sh)
+recipes+=(texinfo.sh)
+recipes+=(vim.sh)
+recipes+=(markupsafe.sh)
+recipes+=(jinja2.sh)
+recipes+=(systemd.sh)
+recipes+=(dbus.sh)
+recipes+=(man-db.sh)
+recipes+=(procps-ng.sh)
+recipes+=(util-linux.sh)
+recipes+=(e2fsprogs.sh)
 
-recipes=(
-    man-pages.sh
-    iana-etc.sh
-    glibc.sh
-    zlib.sh
-    bzip2.sh
-    xz.sh
-    zstd.sh
-    file.sh
-    readline.sh
-    m4.sh
-    bc.sh
-    flex.sh
-    tcl.sh
-    expect.sh
-    dejagnu.sh
-    binutils.sh
-    gmp.sh
-    mpfr.sh
-    mpc.sh
-    attr.sh
-    acl.sh
-    libcap.sh
-    libxcrypt.sh
-    shadow.sh
-    gcc.sh
-    pkgconf.sh
-    ncurses.sh
-    sed.sh
-    psmisc.sh
-    gettext.sh
-    bison.sh
-    grep.sh
-    bash.sh
-    libtool.sh
-    gdbm.sh
-    gperf.sh
-    expat.sh
-    inetutils.sh
-    less.sh
-    perl.sh
-    xml-parser.sh
-    intltool.sh
-    autoconf.sh
-    automake.sh
-    openssl.sh
-    kmod.sh
-    libelf-elfutils.sh
-    libffi.sh
-    python.sh
-    flit-core.sh
-    wheel.sh
-    ninja.sh
-    meson.sh
-    coreutils.sh
-    check.sh
-    diffutils.sh
-    gawk.sh
-    findutils.sh
-    groff.sh
-    grub.sh
-    gzip.sh
-    iproute.sh
-    kbd.sh
-    libpipeline.sh
-    make.sh
-    patch.sh
-    tar.sh
-    texinfo.sh
-    vim.sh
-    markupsafe.sh
-    jinja2.sh
-    systemd.sh
-    dbus.sh
-    man-db.sh
-    procps-ng.sh
-    util-linux.sh
-    e2fsprogs.sh
-)
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")

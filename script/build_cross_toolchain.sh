@@ -13,30 +13,29 @@ if [[ $(whoami) != $LFS_USER ]]; then
     exit 1
 fi
 
-recipes=(
-    binutils.sh
-    gcc.sh
-    linux_headers.sh
-    glibc.sh
-    libstdc++.sh
-    m4.sh
-    ncurses.sh
-    bash.sh
-    coreutils.sh
-    diffutils.sh
-    file.sh
-    findutils.sh
-    gawk.sh
-    grep.sh
-    gzip.sh
-    make.sh
-    patch.sh
-    sed.sh
-    tar.sh
-    xz.sh
-    binutils2.sh
-    gcc2.sh
-)
+declare recipes=()
+recipes+=(binutils.sh)
+recipes+=(gcc.sh)
+recipes+=(linux_headers.sh)
+recipes+=(glibc.sh)
+recipes+=(libstdc++.sh)
+recipes+=(m4.sh)
+recipes+=(ncurses.sh)
+recipes+=(bash.sh)
+recipes+=(coreutils.sh)
+recipes+=(diffutils.sh)
+recipes+=(file.sh)
+recipes+=(findutils.sh)
+recipes+=(gawk.sh)
+recipes+=(grep.sh)
+recipes+=(gzip.sh)
+recipes+=(make.sh)
+recipes+=(patch.sh)
+recipes+=(sed.sh)
+recipes+=(tar.sh)
+recipes+=(xz.sh)
+recipes+=(binutils2.sh)
+recipes+=(gcc2.sh)
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
@@ -61,3 +60,5 @@ do
         echo "File $file is not executable."
     fi
 done
+
+

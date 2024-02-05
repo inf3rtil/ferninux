@@ -2,14 +2,13 @@
 
 set -e
 
-recipes=(
-    gettext.sh
-    bison.sh
-    perl.sh
-    python.sh
-    texinfo.sh
-    util-linux.sh
-)
+declare recipes=()
+recipes+=(gettext.sh)
+recipes+=(bison.sh)
+recipes+=(perl.sh)
+recipes+=(python.sh)
+recipes+=(texinfo.sh)
+recipes+=(util-linux.sh)
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
