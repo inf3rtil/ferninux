@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Config 
+export USE_UEFI=1
+export INIT_SYSTEM=systemd
+
+
 # Directories 
 export WORK_DIR=$PWD
 export BUILD_DIR=$WORK_DIR/build
@@ -14,22 +19,27 @@ export LFS_USER=ferninux
 
 # Disk
 export VDISK_SIZE_GB=30
-export VDISK_FILENAME=ferninux.img
+export VDISK_FILENAME=ferninux_$INIT_SYSTEM.img
 export VDISK_LABEL=gpt
-export VDISK_BIOS_PART=p1
-export VDISK_BOOT_PART=p2
-export VDISK_ROOT_PART=p3
-export VDISK_SWAP_PART=p4
+if test $USE_UEFI; then
+    export VDISK_BIOS_PART=p1
+    export VDISK_UEFI_PART=p2
+    export VDISK_BOOT_PART=p3
+    export VDISK_ROOT_PART=p4
+    export VDISK_SWAP_PART=p5
+else
+    export VDISK_BIOS_PART=p1
+    export VDISK_BOOT_PART=p2
+    export VDISK_ROOT_PART=p3
+    export VDISK_SWAP_PART=p4
+fi
 export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 
 # Download
-export WGET_FILE=$WORK_DIR/script/wget-list-systemd
-export CHECKSUM_FILE=$WORK_DIR/script/sources_md5
+export WGET_FILE=$WORK_DIR/util/wget-list-systemd
+export CHECKSUM_FILE=$WORK_DIR/util/sources_md5
 
 # Build
 export MAKEFLAGS="-j16"
 export ENV_VARS_EXPORTED=1
 
-# Config
-export USE_UEFI=0
-export INIT_SYSTEM=systemd
