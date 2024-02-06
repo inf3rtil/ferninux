@@ -10,7 +10,7 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 
-if test $USE_UEFI; then
+if test $USE_UEFI -eq 1; then
     device_uefi=$(mount | grep $LFS/boot/efi | cut -d ' ' -f1)
     if [[ -n $device_uefi ]]; then
 	umount -v $device_uefi
@@ -31,7 +31,7 @@ fi
 loop_device=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1)
 echo "BOOT: $device_boot"
 echo "ROOT: $device_root"
-if test $USE_UEFI; then
+if test $USE_UEFI -eq 1; then
     echo "UEFI: $device_uefi"
 fi
 echo "LOOP: $loop_device"
@@ -44,4 +44,4 @@ fi
 
 losetup -D
 losetup
-echo "done"
+echo "devices unmounted!"

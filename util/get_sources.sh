@@ -7,14 +7,13 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-$WORK_DIR/util/mount_devices.sh
-
-wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
+#wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
 
 pushd $DOWNLOAD_DIR
   md5sum -c $CHECKSUM_FILE
 popd
 
+$WORK_DIR/util/mount_devices.sh
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
 cp -rv $DOWNLOAD_DIR/* $LFS/sources/

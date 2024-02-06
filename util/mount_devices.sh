@@ -18,14 +18,17 @@ if [[ -z $device ]]; then
 	fi
 	mount -v -t ext4 $disk_loop$VDISK_ROOT_PART $LFS
 	mount -v -t ext2 $disk_loop$VDISK_BOOT_PART $LFS/boot
-	if test $USE_UEFI; then
-	    mount -v $disk_loop$VDISK_UEFI_PART $LFS/boot/efi
+	if test $USE_UEFI -eq 1; then
+	    mount -v $disk_loop$VDISK_EFI_PART $LFS/boot/efi
 	fi
+	echo "devices mounted!"
     else
 	echo "$VDISK_FILENAME not found"
     fi
 else
     echo "$device already mounted"
 fi
+
+
 
 

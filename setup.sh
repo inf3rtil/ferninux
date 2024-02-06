@@ -3,46 +3,63 @@
 DIALOG_CANCEL=1
 DIALOG_ESC=255
 
+. set_env_vars.sh
+
+set -e
+
 while true; do
     exec 3>&1
     selection=$(dialog \
 		    --title "Ferninux Setup" \
 		    --menu "Exec script" 0 0 6 \
-		    "1" "Create Env devices" \
-		    "2" "Create special user" \
-		    "3" "Download sources" \
-		    "4" "Umount devices" \
-		    "5" "Clear Env" \
+		    "1" "Create Project" \
+		    "2" "Build Cross-Toolchain" \
+		    "3" "Build Linux system" \
+		    "4" "Start QEMU" \
+		    "5" "Write image to disk" \
+		    "6" "Clear Project" \
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-
     clear
     case $exit_status in
 	$DIALOG_CANCEL)
+	    clear
 	    exit
 	    ;;
 	$DIALOG_ESC)
+	    clear
 	    exit 1
 	    ;;
     esac
     
     case $selection in
 	1 )
-	    ./script/create_env.sh
+	    $WORK_DIR/util/create_env.sh
+	    $WORK_DIR/util/add_lfs_user.sh
+	    $WORK_DIR/util/get_sources.sh
 	    ;;
 	2 )
-	    ./script/add_lfs_user.sh
+	    $WORK_DIR/util/mount_devices.sh
+	    sudo --preserve-env=WORK_DIR,LFS_USER,ENV_VARS_EXPORTED,LFS,MAKEFLAGS -u $LFS_USER \
+		 bash -c 'source ~/.bashrc && $WORK_DIR/script/build_cross_toolchain.sh' 
+	    $WORK_DIR/util/umount_devices.sh
 	    ;;
 	3 )
-	    ./script/get_sources.sh
+	    $WORK_DIR/util/enter_chroot.sh
 	    ;;
 	4 )
-	    ./script/umount_loop.sh
+	    $WORK_DIR/util/start_qemu.sh
 	    ;;
 	5 )
-	    ./script/clean.sh
+	    dd if=$WORK_DIR/build/$VDISK_FILENAME $TARGET_PHY_DISK
+	    ;;
+	6 )
+	    $WORK_DIR/util/clean.sh
 	    ;; 
     esac
     echo "Press any key to continue"
     read -n 1 -s
 done
+
+clear

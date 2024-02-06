@@ -1,28 +1,14 @@
 #!/bin/bash
 
-if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
-    echo "Env variables not found, probable solution:"
-    echo "1 - source set_env_vars.sh"
-    exit 1
+device=$(mount | grep $LFS | cut -d ' ' -f1)
+
+if [[ -z $device ]]; then
+	mount -v -t ext4 /dev/sdb4 $LFS
+	mount -v -t ext2 /dev/sdb3 $LFS/boot
+    mount -v /dev/sdb2 $LFS/boot/efi
+else
+    echo "$device already mounted"
 fi
-
-if [[ $(whoami) != "root" ]]; then
-    echo "run this script as root user"
-    exit 1
-fi
-
-$WORK_DIR/util/mount_devices.sh
-
-chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
-case $(uname -m) in
-    x86_64) chown -R root:root $LFS/lib64 ;;
-esac
-
-mkdir -pv $LFS/{dev,proc,sys,run}
-
-#ferninux to run scripts inside chrooted env
-mkdir -pv $LFS/script
-cp -prv $CHROOT_SCRIPTS_DIR/* $LFS/script/
 
 mount -v --bind /dev $LFS/dev
 mount -v --bind /dev/pts $LFS/dev/pts
@@ -47,7 +33,7 @@ chroot "$LFS" /usr/bin/env -i \
        USE_UEFI=$USE_UEFI \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
-       /bin/bash --login /script/ferninux.sh
+       /bin/bash --login
 
 echo "unmounting virtual filesystem"
 umount -v $LFS/dev/pts
@@ -57,7 +43,24 @@ umount -v $LFS/proc
 umount -v $LFS/sys
 umount -v $LFS/run
 
-$WORK_DIR/util/umount_devices.sh
+if test $USE_UEFI; then
+    device_uefi=$(mount | grep $LFS/boot/efi | cut -d ' ' -f1)
+    if [[ -n $device_uefi ]]; then
+	umount -v $device_uefi
+    fi
+fi
+
+device_boot=$(mount | grep $LFS/boot | cut -d ' ' -f1)
+
+if [[ -n $device_boot ]]; then
+    umount -v $device_boot
+fi
+
+device_root=$(mount | grep $LFS | cut -d ' ' -f1)
+if [[ -n $device_root ]]; then
+    umount -v $device_root
+fi
+
 
 findmnt | grep $LFS
 

@@ -9,6 +9,6 @@ fi
 
 losetup -D
 rm -rfv $BUILD_DIR
-rm -rfv $DOWNLOAD_DIR
+#rm -rfv $DOWNLOAD_DIR
 rm -rfv $BACKUP_DIR
 userdel $LFS_USER
