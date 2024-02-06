@@ -62,6 +62,18 @@ recipes+=(diffutils.sh)
 recipes+=(gawk.sh)
 recipes+=(findutils.sh)
 recipes+=(groff.sh)
+
+if test $USE_UEFI -eq 1; then
+    recipes+=(mandoc.sh)
+    recipes+=(efivar.sh)
+    recipes+=(popt.sh)
+    recipes+=(efibootmgr.sh)
+    recipes+=(freetype.sh)
+    recipes+=(grub-efi.sh)
+else
+    recipes+=(grub.sh)
+fi
+
 recipes+=(gzip.sh)
 recipes+=(iproute.sh)
 recipes+=(kbd.sh)

@@ -7,6 +7,7 @@ KERNEL_SRC_FOLDER=linux-6.4.12
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
+CONFIG_PATH=$SCRIPT_PATH/system_config/config-6.4.12
 
 SOURCES_ROOT_DIR=/sources
 
@@ -14,8 +15,8 @@ tar xvf $SOURCES_ROOT_DIR/$KERNEL_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
 cd $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER
 
 make mrproper
-make defconfig
-make menuconfig
+cp $CONFIG_PATH ./.config
+#make menuconfig
 
 make $MAKEFLAGS
 
@@ -27,3 +28,5 @@ cp -iv .config /boot/config-6.4.12
 cp -r Documentation -T /usr/share/doc/linux-6.4.12
 
 chown -R 0:0 $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER
+cd /
+#mv -R $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER /usr/src/
