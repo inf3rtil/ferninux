@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PACKAGE_NAME=Mesa
+PACKAGE_NAME=mesa
 VERSION=23.1.6
 DOWNLOAD_URL=https://mesa.freedesktop.org/archive/mesa-23.1.6.tar.xz
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)

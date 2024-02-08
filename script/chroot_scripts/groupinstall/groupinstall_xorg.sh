@@ -9,7 +9,6 @@ RECIPES_DIR=$SCRIPT_PATH/recipes/x86_64/xorg
 SOURCES_ROOT_DIR=/sources
 
 echo "Creating Xorg build env"
-if test 1 -eq 0; then
 export XORG_PREFIX=/usr
 export XORG_CONFIG="--prefix=$XORG_PREFIX --sysconfdir=/etc \
     --localstatedir=/var --disable-static"
@@ -26,7 +25,6 @@ XORG_CONFIG="--prefix=\$XORG_PREFIX --sysconfdir=/etc --localstatedir=/var --dis
 export XORG_PREFIX XORG_CONFIG
 EOF
 chmod 644 /etc/profile.d/xorg.sh
-fi
 
 declare -a recipes=()
 recipes+=(util-macros)

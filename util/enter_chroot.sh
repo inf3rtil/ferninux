@@ -47,7 +47,7 @@ chroot "$LFS" /usr/bin/env -i \
        USE_UEFI=$USE_UEFI \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
-       /bin/bash --login /script/ferninux.sh
+       /bin/bash --login #/script/ferninux.sh
 
 echo "unmounting virtual filesystem"
 umount -v $LFS/dev/pts

@@ -7,11 +7,15 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-#wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
+declare -a download_list_files=()
+download_list_files+=$WORK_DIR/util/download_urls/chroot_scripts
 
-pushd $DOWNLOAD_DIR
-  md5sum -c $CHECKSUM_FILE
-popd
+#wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
+wget --input-file=$WORK_DIR/util/download_urls/chroot_scripts --continue --directory-prefix=$DOWNLOAD_DIR
+
+#pushd $DOWNLOAD_DIR
+#  md5sum -c $CHECKSUM_FILE
+#popd
 
 $WORK_DIR/util/mount_devices.sh
 mkdir -pv $LFS/sources
