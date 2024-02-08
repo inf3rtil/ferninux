@@ -1,7 +1,7 @@
 # Ferninux
 
 ## Description
-This project contains scripts and tools to create a raw disk image with a fully functional linux system, based on Linux From Scratch Project and deployable on a virtualmachione or a physical disk drive
+This project contains scripts and tools to create a raw disk image with a fully functional linux system, based on Linux From Scratch Project and deployable on a virtual machine or a physical disk drive
 - 100% shell script
 - minimal config for linux 6.4
 - UEFI support by default
