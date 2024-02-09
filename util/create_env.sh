@@ -15,7 +15,6 @@ mkdir -pv $LFS
 mkdir -pv $BACKUP_DIR
 mkdir -pv $DOWNLOAD_DIR
 
-
 if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
     echo "$VDISK_FILENAME already created"
 else
