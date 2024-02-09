@@ -96,7 +96,7 @@ recipes+=(e2fsprogs.sh)
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
-RECIPES_DIR=$SCRIPT_PATH/basic_system
+RECIPES_DIR=$SCRIPT_PATH/recipes/$FERNINUX_TARGET_ARCH
 SOURCES_ROOT_DIR=/sources
 
 mkdir -p /build_log

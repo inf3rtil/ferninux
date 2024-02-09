@@ -45,6 +45,7 @@ chroot "$LFS" /usr/bin/env -i \
        PATH=/usr/bin:/usr/sbin \
        MAKEFLAGS=$MAKEFLAGS \
        USE_UEFI=$USE_UEFI \
+       FERNINUX_TARGET_ARCH=$FERNINUX_TARGET_ARCH \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
        /bin/bash --login #/script/ferninux.sh

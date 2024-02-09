@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Config 
+export FERNINUX_TARGET_ARCH=x86_64
 export USE_UEFI=1
 export INIT_SYSTEM=systemd
-
 
 # Directories 
 export WORK_DIR=$PWD
 export BUILD_DIR=$WORK_DIR/build
 export LFS=$BUILD_DIR/lfs
-export CHROOT_SCRIPTS_DIR=$WORK_DIR/script/chroot_scripts
+export CHROOT_SCRIPTS_DIR=$WORK_DIR/install_scripts
 export BACKUP_DIR=$WORK_DIR/backup
 export BACKUP_FILE=ferninux_backup.tar.xz
 export DOWNLOAD_DIR=$WORK_DIR/downloads
@@ -19,7 +19,7 @@ export LFS_USER=ferninux
 
 # Disk
 export VDISK_SIZE_GB=30
-export VDISK_FILENAME=ferninux_$INIT_SYSTEM.img
+export VDISK_FILENAME=ferninux_$INIT_SYSTEM\_$ARCH.img
 export VDISK_LABEL=gpt
 export VDISK_BIOS_PART=p1
 export VDISK_EFI_PART=p1
