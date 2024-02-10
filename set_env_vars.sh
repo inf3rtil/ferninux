@@ -19,7 +19,7 @@ export LFS_USER=ferninux
 
 # Disk
 export VDISK_SIZE_GB=30
-export VDISK_FILENAME=ferninux_$INIT_SYSTEM\_$ARCH.img
+export VDISK_FILENAME=ferninux_$INIT_SYSTEM\_$FERNINUX_TARGET_ARCH.img
 export VDISK_LABEL=gpt
 export VDISK_BIOS_PART=p1
 export VDISK_EFI_PART=p1
