@@ -7,8 +7,7 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-declare -a download_list_files=()
-download_list_files+=$WORK_DIR/util/download_urls/chroot_scripts
+$WORK_DIR/util/get_url_from_recipes.sh
 
 #wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
 wget --input-file=$WORK_DIR/util/download_urls/chroot_scripts --continue --directory-prefix=$DOWNLOAD_DIR
@@ -20,6 +19,6 @@ wget --input-file=$WORK_DIR/util/download_urls/chroot_scripts --continue --direc
 $WORK_DIR/util/mount_devices.sh
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
-cp -rv $DOWNLOAD_DIR/* $LFS/sources/
+cp -r $DOWNLOAD_DIR/* $LFS/sources/
 
 $WORK_DIR/util/umount_devices.sh

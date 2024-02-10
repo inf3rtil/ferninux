@@ -5,7 +5,7 @@ set -e
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
-RECIPES_DIR=$SCRIPT_PATH/recipes/x86_64/xorg
+RECIPES_DIR=$SCRIPT_PATH/recipes/$FERNINUX_TARGET_ARCH/security
 SOURCES_ROOT_DIR=/sources
 
 declare -a recipes=()

@@ -21,7 +21,7 @@ build_source_package(){
 	      ..                      &&
 	
 	ninja
-    ninja_install
+    ninja install
     install -v -dm755 /usr/share/doc/mesa-$VERSION &&
 	cp -rfv ../docs/* /usr/share/doc/mesa-$VERSION
 }
