@@ -2,12 +2,13 @@
 
 set -e
 
-KERNEL_COMPRESSED_FILE=linux-6.4.12.tar.xz
-KERNEL_SRC_FOLDER=linux-6.4.12
+KERNEL_VERSION='6.4.12'
+KERNEL_COMPRESSED_FILE=linux-$KERNEL_VERSION.tar.xz
+KERNEL_SRC_FOLDER=linux-$KERNEL_VERSION
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
-CONFIG=$SCRIPT_PATH/config/$ARCH/config-6.4.12
+CONFIG=$SCRIPT_PATH/config/$FERNINUX_TARGET_ARCH/config-$KERNEL_VERSION
 
 SOURCES_ROOT_DIR=/sources
 
@@ -27,6 +28,8 @@ cp -iv System.map /boot/System.map-6.4.12
 cp -iv .config /boot/config-6.4.12
 cp -r Documentation -T /usr/share/doc/linux-6.4.12
 
+make mrproper
+
 chown -R 0:0 $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER
 cd /
-mv -R $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER /usr/src/
+mv -f $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER /usr/src/
