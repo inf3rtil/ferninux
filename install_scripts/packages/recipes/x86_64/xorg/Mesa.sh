@@ -14,7 +14,7 @@ build_source_package(){
 	      --prefix=$XORG_PREFIX   \
 	      --buildtype=release     \
 	      -Dplatforms=x11,wayland \
-	      -Dgallium-drivers=auto  \
+	      -Dgallium-drivers=radeonsi  \
 	      -Dvulkan-drivers=""     \
 	      -Dvalgrind=disabled     \
 	      -Dlibunwind=disabled    \

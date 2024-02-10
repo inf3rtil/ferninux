@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PACKAGE_NAME="font-bh-ttf"
-VERSION="bh-ttf-1.0.4"
+VERSION="1.0.4"
 DOWNLOAD_URL="https://www.x.org/pub/individual/font/font-bh-ttf-1.0.4.tar.xz"
 MD5_SUM="063bfa1456c8a68208bf96a33f472bb1"
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
