@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PACKAGE_NAME=Xorg-Server
+PACKAGE_NAME=xorg-server
 VERSION=21.1.8 
 DOWNLOAD_URL=https://www.x.org/pub/individual/xserver/xorg-server-21.1.8.tar.xz
 DOWNLOAD_URL_2=https://www.linuxfromscratch.org/patches/blfs/12.0/xorg-server-21.1.8-tearfree_backport-1.patch

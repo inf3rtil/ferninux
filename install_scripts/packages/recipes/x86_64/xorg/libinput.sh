@@ -19,7 +19,7 @@ build_source_package(){
               -Dudev-dir=/usr/lib/udev \
               ..                      &&
 	ninja
-    make install
+    ninja install
 
 }
 

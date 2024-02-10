@@ -8,8 +8,8 @@ SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 build_source_package(){
-	./configure $XORG_PREFIX --docdir=$XORG_PREFIX/share/doc/$PACKAGE_NAME-$VERSION  \
-                    --with-appdefaultdir=/etc/X11/app-defaults
+    ./configure $XORG_CONFIG --docdir=$XORG_PREFIX/share/doc/$PACKAGE_NAME-$VERSION \
+		--with-appdefaultdir=/etc/X11/app-defaults
 	make $MAKEFLAGS
 	make install
 	/sbin/ldconfig

@@ -3,7 +3,7 @@
 PACKAGE_NAME=xterm
 VERSION=384
 DOWNLOAD_URL=https://invisible-mirror.net/archives/xterm/xterm-384.tgz
-SRC_COMPRESSED_FILE=$(echo $url | rev | cut -d '/' -f 1 | rev)
+SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 build_source_package(){

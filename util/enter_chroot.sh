@@ -48,7 +48,7 @@ chroot "$LFS" /usr/bin/env -i \
        FERNINUX_TARGET_ARCH=$FERNINUX_TARGET_ARCH \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
-       /bin/bash --login #/script/ferninux.sh
+       /bin/bash --login #/script/packages/install_xorg.sh
 
 echo "unmounting virtual filesystem"
 umount -v $LFS/dev/pts
