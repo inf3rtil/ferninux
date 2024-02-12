@@ -5,8 +5,7 @@ set -e
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
-RECIPES_DIR=$SCRIPT_PATH/recipes/$FERNINUX_TARGET_ARCH
-SOURCES_ROOT_DIR=/sources
+. /script/install_source.sh
 
 echo "Creating Xorg build env"
 export XORG_PREFIX=/usr
@@ -81,7 +80,7 @@ recipes+=(libraries/libunwind)
 recipes+=(libraries/libxml2)
 recipes+=(libraries/wayland)
 recipes+=(libraries/wayland-protocols)
-recipes+=(network/curl)
+recipes+=(network_libraries/curl)
 recipes+=(programming/cmake)
 recipes+=(programming/llvm)
 recipes+=(programming/mako)
@@ -157,24 +156,10 @@ recipes+=(xorg/xterm)
 recipes+=(xorg/xclock)
 recipes+=(xorg/xinit)
 
-cd $RECIPES_DIR
-
-for file in "${recipes[@]}"
-do
-    if [ -x "$file.sh" ]; then
-        . ./"$file.sh"
-	echo "extracting files from $SRC_COMPRESSED_FILE"
-	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
-	tar xvf $SOURCES_ROOT_DIR/$SRC_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
-	cd $SOURCES_ROOT_DIR/$SRC_FOLDER
-	build_source_package
-	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
-	cd $RECIPES_DIR
-    else
-        echo "File $file is not executable."
-    fi
-done
+install_package_list
 
 install -v -d -m755 /usr/share/fonts                               &&
 ln -svfn $XORG_PREFIX/share/fonts/X11/OTF /usr/share/fonts/X11-OTF &&
 ln -svfn $XORG_PREFIX/share/fonts/X11/TTF /usr/share/fonts/X11-TTF
+
+echo "Xorg installed"
