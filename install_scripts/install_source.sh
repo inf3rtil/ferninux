@@ -22,6 +22,7 @@ function install_package_list() {
 	    fi
 	else
 	    echo "File $file is not executable or not exists."
+	    exit 2
 	fi
     done
 }
