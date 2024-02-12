@@ -20,8 +20,6 @@ PRETTY_NAME="Linux From Scratch 12.0-systemd"
 VERSION_CODENAME="ferninux"
 EOF
 
-passwd root
-
 file_list=(
  /etc/bashrc
  /etc/dircolors
