@@ -46,9 +46,10 @@ chroot "$LFS" /usr/bin/env -i \
        MAKEFLAGS=$MAKEFLAGS \
        USE_UEFI=$USE_UEFI \
        FERNINUX_TARGET_ARCH=$FERNINUX_TARGET_ARCH \
+       INSTALLED_PACKAGES_FILE=$INSTALLED_PACKAGES_FILE \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
-       /bin/bash --login #/script/packages/install_xorg.sh
+       /bin/bash --login #/script/ferninux.sh
 
 echo "unmounting virtual filesystem"
 umount -v $LFS/dev/pts

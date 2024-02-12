@@ -4,6 +4,7 @@
 export FERNINUX_TARGET_ARCH=x86_64
 export USE_UEFI=1
 export INIT_SYSTEM=systemd
+#TODO export USE_DEFAULT_KERNEL=1
 
 # Directories 
 export WORK_DIR=$PWD
@@ -30,6 +31,7 @@ export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 export TARGET_PHY_DISK=' '
 
 # Download
+#TODO CUSTOM_SOURCES_PATH=
 export WGET_FILE=$WORK_DIR/util/wget_list_systemd
 export CHECKSUM_FILE=$WORK_DIR/util/sources_md5
 
@@ -37,3 +39,5 @@ export CHECKSUM_FILE=$WORK_DIR/util/sources_md5
 export MAKEFLAGS="-j16"
 export ENV_VARS_EXPORTED=1
 
+# Distrib
+export INSTALLED_PACKAGES_FILE=/packages.install
