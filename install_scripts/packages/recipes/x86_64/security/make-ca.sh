@@ -10,7 +10,7 @@ SRC_FOLDER=$PACKAGE_NAME-$VERSION
 build_source_package(){
     make install &&
 	install -vdm755 /etc/ssl/local
-    /usr/sbin/make-ca -g
+    #/usr/sbin/make-ca -g
     systemctl enable update-pki.timer
 }
 
