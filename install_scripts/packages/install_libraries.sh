@@ -11,5 +11,8 @@ recipes+=(libraries/pcre2)
 recipes+=(libraries/libxml2)
 recipes+=(libraries/libxslt)
 recipes+=(libraries/glib)
+recipes+=(libraries/libarchive)
+recipes+=(libraries/libuv)
+recipes+=(libraries/gobject-introspection)
 
 install_package_list

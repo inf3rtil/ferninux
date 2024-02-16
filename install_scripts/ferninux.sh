@@ -17,6 +17,7 @@ $SCRIPT_PATH/kernel/build_linux_kernel.sh #chapter 10
 $SCRIPT_PATH/basic_system/install_grub2.sh #chapter 10 TODO: install bootloader
 $SCRIPT_PATH/basic_system/finish_install.sh #chapter 11
 $SCRIPT_PATH/post_install/bash_startup_files.sh #BLFS
+$SCRIPT_PATH/packages/install_libraries.sh
 $SCRIPT_PATH/packages/install_security.sh
 $SCRIPT_PATH/packages/install_utilities.sh
 $SCRIPT_PATH/packages/install_xorg.sh
