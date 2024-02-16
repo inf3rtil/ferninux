@@ -4,11 +4,10 @@ set -e
 
 echo 12.0-systemd > /etc/lfs-release
 
-
 cat > /etc/lsb-release << "EOF"
 DISTRIB_ID="Linux From Scratch"
 DISTRIB_RELEASE="12.0-systemd"
-DISTRIB_CODENAME="<your name here>"
+DISTRIB_CODENAME="ferninux"
 DISTRIB_DESCRIPTION="Linux From Scratch"
 EOF
 
@@ -29,11 +28,11 @@ file_list=(
  /etc/profile
  /etc/resolv.conf
  /etc/vimrc
- /root/.bash_profile
- /root/.bashrc
 )
 
 cd /
+
+echo "Checking conf files"
 
 for file in "${file_list[@]}"
 do
@@ -42,9 +41,8 @@ do
         cat "$file"
     else
         echo "File $file not found."
-	exit 1
     fi
 done
 
-echo "system OK, reboot and have fun!"
+echo "Basic system OK, reboot and have fun!"
 
