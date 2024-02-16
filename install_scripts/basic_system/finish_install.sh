@@ -44,5 +44,7 @@ do
     fi
 done
 
+passwd
+
 echo "Basic system OK, reboot and have fun!"
 
