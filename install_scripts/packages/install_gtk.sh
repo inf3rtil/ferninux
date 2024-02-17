@@ -14,5 +14,7 @@ recipes+=(graphical_libraries/gdk-pixbuf)
 recipes+=(graphical_libraries/fribidi)
 recipes+=(graphical_libraries/cairo)
 recipes+=(graphical_libraries/pango)
+recipes+=(graphical_libraries/gtk+2)
+recipes+=(graphical_libraries/gtk+3)
 
 install_package_list
