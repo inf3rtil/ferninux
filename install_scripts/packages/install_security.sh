@@ -14,12 +14,13 @@ recipes+=(security/linux-pam)
 recipes+=(security/shadow)
 recipes+=(utilities/systemd)
 recipes+=(libraries/duktape)
-recipes+=(network_libraries/curl)
 recipes+=(programming/cmake)
 recipes+=(security/polkit)
 recipes+=(security/iptables)
 recipes+=(libraries/nspr)
 recipes+=(security/nss)
+#recipes+=(security/cracklib)
+#recipes+=(security/libpwquality)
 
 install_package_list
 

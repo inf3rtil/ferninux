@@ -36,23 +36,23 @@ build_source_package(){
 
     QT5BINDIR=$QT5PREFIX/bin
 
-install -v -dm755 /usr/share/pixmaps/                  &&
+    install -v -dm755 /usr/share/pixmaps/                  &&
 
-install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png \
+	install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png \
                   /usr/share/pixmaps/assistant-qt5.png &&
 
-install -v -Dm644 qttools/src/designer/src/designer/images/designer.png \
+	install -v -Dm644 qttools/src/designer/src/designer/images/designer.png \
                   /usr/share/pixmaps/designer-qt5.png  &&
 
-install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png \
+	install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png \
                   /usr/share/pixmaps/linguist-qt5.png  &&
 
-install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+	install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
                   /usr/share/pixmaps/qdbusviewer-qt5.png &&
 
-install -dm755 /usr/share/applications &&
+	install -dm755 /usr/share/applications &&
 
-cat > /usr/share/applications/assistant-qt5.desktop << EOF
+	cat > /usr/share/applications/assistant-qt5.desktop << EOF
 [Desktop Entry]
 Name=Qt5 Assistant
 Comment=Shows Qt5 documentation and examples
@@ -64,7 +64,7 @@ Type=Application
 Categories=Qt;Development;Documentation;
 EOF
 
-cat > /usr/share/applications/designer-qt5.desktop << EOF
+    cat > /usr/share/applications/designer-qt5.desktop << EOF
 [Desktop Entry]
 Name=Qt5 Designer
 GenericName=Interface Designer
@@ -78,7 +78,7 @@ Type=Application
 Categories=Qt;Development;
 EOF
 
-cat > /usr/share/applications/linguist-qt5.desktop << EOF
+    cat > /usr/share/applications/linguist-qt5.desktop << EOF
 [Desktop Entry]
 Name=Qt5 Linguist
 Comment=Add translations to Qt5 applications
@@ -91,7 +91,7 @@ Type=Application
 Categories=Qt;Development;
 EOF
 
-cat > /usr/share/applications/qdbusviewer-qt5.desktop << EOF
+    cat > /usr/share/applications/qdbusviewer-qt5.desktop << EOF
 [Desktop Entry]
 Name=Qt5 QDbusViewer
 GenericName=D-Bus Debugger
@@ -104,14 +104,14 @@ Type=Application
 Categories=Qt;Development;Debugger;
 EOF
 
-for file_qt in moc uic rcc qmake lconvert lrelease lupdate; do
-  ln -sfrvn $QT5BINDIR/$file_qt /usr/bin/$file_qt-qt5
-done
+    for file_qt in moc uic rcc qmake lconvert lrelease lupdate; do
+	ln -sfrvn $QT5BINDIR/$file_qt /usr/bin/$file_qt-qt5
+    done
 
-mkdir -pv /opt/qt-5.15.10
-ln -sfnv qt-5.15.10 /opt/qt5
+    mkdir -pv /opt/qt-5.15.10
+    ln -sfnv qt-5.15.10 /opt/qt5
 
-cat >> /etc/ld.so.conf << EOF
+    cat >> /etc/ld.so.conf << EOF
 # Begin Qt addition
 
 /opt/qt5/lib
@@ -119,9 +119,9 @@ cat >> /etc/ld.so.conf << EOF
 # End Qt addition
 EOF
 
-ldconfig
+    ldconfig
 
-cat > /etc/profile.d/qt5.sh << "EOF"
+    cat > /etc/profile.d/qt5.sh << "EOF"
 # Begin /etc/profile.d/qt5.sh
 
 QT5DIR=/opt/qt5
