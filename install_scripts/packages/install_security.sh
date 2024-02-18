@@ -19,8 +19,8 @@ recipes+=(security/polkit)
 recipes+=(security/iptables)
 recipes+=(libraries/nspr)
 recipes+=(security/nss)
-#recipes+=(security/cracklib)
-#recipes+=(security/libpwquality)
+recipes+=(security/cracklib)
+recipes+=(security/libpwquality)
 
 install_package_list
 

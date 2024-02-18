@@ -15,7 +15,7 @@ recipes+=(libraries/libarchive)
 recipes+=(libraries/libuv)
 recipes+=(libraries/gobject-introspection)
 recipes+=(network_libraries/curl)
-#recipes+=(libraries/icu)
-#recipes+=(libraries/libqalculate)
+recipes+=(libraries/icu)
+recipes+=(libraries/libqalculate)
 
 install_package_list
