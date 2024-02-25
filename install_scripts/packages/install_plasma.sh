@@ -7,6 +7,9 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 . /script/install_source.sh
 
 declare -a recipes=()
+recipes+=(multimedia_libraries/libogg)
+recipes+=(multimedia_libraries/libvorbis)
+recipes+=(multimedia_libraries/libcanberra)
 recipes+=(multimedia_libraries/pipewire)
 recipes+=(multimedia_libraries/libsndfile)
 recipes+=(multimedia_libraries/pulseaudio)
@@ -40,7 +43,7 @@ recipes+=(plasma/kwayland-integration)
 recipes+=(plasma/kwrited)
 recipes+=(plasma/milou)
 recipes+=(plasma/plasma-nm)
-recipes+=(plasma/plasma-pa) # missing camberra
+recipes+=(plasma/plasma-pa)
 recipes+=(plasma/plasma-workspace-wallpapers)
 recipes+=(plasma/polkit-kde-agent-1)
 recipes+=(plasma/powerdevil)
@@ -63,9 +66,50 @@ recipes+=(plasma/qqc2-breeze-style)
 recipes+=(plasma/ksystemstats)
 recipes+=(plasma/oxygen-sounds)
 recipes+=(plasma/kdeplasma-addons)
-recipes+=(plasma/kpipewire)
+#recipes+=(plasma/kpipewire) #require ffmpeg
 recipes+=(plasma/plank-player)
 recipes+=(plasma/plasma-bigscreen)
 recipes+=(plasma/plasma-remotecontrollers)
 
 install_package_list
+
+cat > /etc/pam.d/kde << "EOF"
+# Begin /etc/pam.d/kde
+
+auth     requisite      pam_nologin.so
+auth     required       pam_env.so
+
+auth     required       pam_succeed_if.so uid >= 1000 quiet
+auth     include        system-auth
+
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/kde
+EOF
+
+cat > /etc/pam.d/kde-np << "EOF"
+# Begin /etc/pam.d/kde-np
+
+auth     requisite      pam_nologin.so
+auth     required       pam_env.so
+
+auth     required       pam_succeed_if.so uid >= 1000 quiet
+auth     required       pam_permit.so
+
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/kde-np
+EOF
+
+cat > /etc/pam.d/kscreensaver << "EOF"
+# Begin /etc/pam.d/kscreensaver
+
+auth    include system-auth
+account include system-account
+
+# End /etc/pam.d/kscreensaver
+EOF

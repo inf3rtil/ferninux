@@ -21,6 +21,9 @@ recipes+=(libraries/nspr)
 recipes+=(security/nss)
 recipes+=(security/cracklib)
 recipes+=(security/libpwquality)
+recipes+=(security/nettle)
+recipes+=(libraries/libunistring)
+recipes+=(security/gnutls)
 
 install_package_list
 
