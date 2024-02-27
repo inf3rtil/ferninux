@@ -2,7 +2,7 @@
 
 PACKAGE_NAME="kdesignerplugin"
 VERSION="5.109.0"
-DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kdesignerplugin-5.109.0.tar.xz"
+DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kdesignerplugin-5.109.0.tar.gz"
 MD5_SUM="cd659fa310535c476d3dcb7cba5499f8"
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION

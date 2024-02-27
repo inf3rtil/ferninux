@@ -14,10 +14,10 @@ build_source_package(){
 	      --prefix=$XORG_PREFIX   \
 	      --buildtype=release     \
 	      -Dplatforms=x11,wayland \
-	      -Dgallium-drivers=radeonsi  \
+	      -Dgallium-drivers=auto  \
 	      -Dvulkan-drivers=""     \
 	      -Dvalgrind=disabled     \
-	      -Dlibunwind=disabled    \
+	      -Dlibunwind=enabled    \
 	      ..                      &&
 	
 	ninja

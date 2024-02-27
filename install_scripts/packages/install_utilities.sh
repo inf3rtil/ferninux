@@ -10,6 +10,7 @@ declare -a recipes=()
 recipes+=(utilities/which)
 recipes+=(xml/docbook-xml) 
 recipes+=(xml/docbook-xsl-nons) 
-recipes+=(xml/xmlto) 
+recipes+=(xml/xmlto)
+recipes+=(printing/cups)
 
 install_package_list
