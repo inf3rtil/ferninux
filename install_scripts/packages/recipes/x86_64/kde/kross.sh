@@ -2,7 +2,7 @@
 
 PACKAGE_NAME="kross"
 VERSION="5.109.0"
-DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kross-5.109.0.tar.xz"
+DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kross-5.109.0.tar.gz"
 MD5_SUM="e647b806ba546ea010b304f707a9d696"
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
