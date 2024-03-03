@@ -7,18 +7,49 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-$WORK_DIR/util/get_url_from_recipes.sh
+# 1 - get download urls and checksum hash of all recipes
+rm $TEMP/recipe_list.txt
+declare -a recipes_path=()
+declare -a recipe_files=()
+recipes_path+=($WORK_DIR/cross_toolchain/recipes)
+#recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes)
+#recipes_path+=($WORK_DIR/install_scripts/basic_system/recipes)
+#recipes_path+=($WORK_DIR/install_scripts/packages/recipes)
 
-#wget --input-file=$WGET_FILE --continue --directory-prefix=$DOWNLOAD_DIR
-wget --input-file=$WORK_DIR/util/download_urls/chroot_scripts --continue --directory-prefix=$DOWNLOAD_DIR
+for recipe_path in "${recipes_path[@]}"
+do
+    echo "get recipe files from $recipe_path"
+    find $recipe_path -name "*.sh" >> $TEMP/recipe_list.txt
+done
 
-#pushd $DOWNLOAD_DIR
-#  md5sum -c $CHECKSUM_FILE
-#popd
+# 2 - download packages
+while read recipe; do
+    . $recipe
+    if [ -v ISRECIPE ]; then
+	for md5 in "${!DOWNLOAD_URLS[@]}"
+	do
+	    url="${DOWNLOAD_URLS[$md5]}"
+	    checksum=$md5
+	    echo "$url : $checksum"
+	    if [ ! -f $DOWNLOAD_DIR/$SRC_COMPRESSED_FILE ]; then
+		wget $url --continue --directory-prefix=$DOWNLOAD_DIR
+		echo "$md5  $SRC_COMPRESSED_FILE" >> $CHECKSUM_FILE
+	    else
+		echo "file $SRC_COMPRESSED_FILE already retrieved"
+	    fi
+	done
+	unset ISRECIPE
+    fi
+done < $TEMP/recipe_list.txt
 
+# 3 - verify md5
+pushd $DOWNLOAD_DIR
+  md5sum -c $CHECKSUM_FILE
+popd
+
+# 4 - copy downloaded files to target
 $WORK_DIR/util/mount_devices.sh
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
 cp -r $DOWNLOAD_DIR/* $LFS/sources/
-
 $WORK_DIR/util/umount_devices.sh

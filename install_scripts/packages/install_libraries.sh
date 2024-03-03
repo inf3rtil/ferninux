@@ -8,6 +8,7 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 
 declare -a recipes=()
 recipes+=(libraries/pcre2)
+recipes+=(libraries/pcre)
 recipes+=(libraries/libxml2)
 recipes+=(libraries/libxslt)
 recipes+=(libraries/glib)
@@ -22,5 +23,6 @@ recipes+=(libraries/libuv)
 recipes+=(libraries/libunwind)
 recipes+=(libraries/nghttp2)
 recipes+=(network_libraries/curl)
+recipes+=(libraries/boost)
 
 install_package_list

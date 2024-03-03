@@ -2,7 +2,7 @@
 
 PACKAGE_NAME="kxmlrpcclient"
 VERSION="5.109.0"
-DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kxmlrpcclient-5.109.0.tar.xz"
+DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kxmlrpcclient-5.109.0.tar.gz"
 MD5_SUM="a1af96f8f082e4f9fca0ce476528b6ae"
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION

@@ -14,28 +14,28 @@ if [[ $(whoami) != $LFS_USER ]]; then
 fi
 
 declare recipes=()
-recipes+=(binutils.sh)
-recipes+=(gcc.sh)
-recipes+=(linux_headers.sh)
-recipes+=(glibc.sh)
-recipes+=(libstdc++.sh)
-recipes+=(m4.sh)
-recipes+=(ncurses.sh)
-recipes+=(bash.sh)
-recipes+=(coreutils.sh)
-recipes+=(diffutils.sh)
-recipes+=(file.sh)
-recipes+=(findutils.sh)
-recipes+=(gawk.sh)
-recipes+=(grep.sh)
-recipes+=(gzip.sh)
-recipes+=(make.sh)
-recipes+=(patch.sh)
-recipes+=(sed.sh)
-recipes+=(tar.sh)
-recipes+=(xz.sh)
-recipes+=(binutils2.sh)
-recipes+=(gcc2.sh)
+recipes+=(binutils-pass1-2.4.2)
+#recipes+=(gcc.sh)
+#recipes+=(linux_headers.sh)
+#recipes+=(glibc.sh)
+#recipes+=(libstdc++.sh)
+#recipes+=(m4.sh)
+#recipes+=(ncurses.sh)
+#recipes+=(bash.sh)
+#recipes+=(coreutils.sh)
+#recipes+=(diffutils.sh)
+#recipes+=(file.sh)
+#recipes+=(findutils.sh)
+#recipes+=(gawk.sh)
+#recipes+=(grep.sh)
+#recipes+=(gzip.sh)
+#recipes+=(make.sh)
+#recipes+=(patch.sh)
+#recipes+=(sed.sh)
+#recipes+=(tar.sh)
+#recipes+=(xz.sh)
+#recipes+=(binutils2.sh)
+#recipes+=(gcc2.sh)
 
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
@@ -48,12 +48,14 @@ echo $CROSS_TOOLCHAIN_SOURCES
 
 for file in "${recipes[@]}"
 do
-    if [ -x "$file" ]; then
-        . ./"$file"
+    if [ -x "$file.sh" ]; then
+        . ./"$file.sh"
 	echo "extracting files from $SRC_COMPRESSED_FILE"
 	tar xvf $SOURCES_ROOT_DIR/$SRC_COMPRESSED_FILE -C $SOURCES_ROOT_DIR
 	cd $SOURCES_ROOT_DIR/$SRC_FOLDER
+	config_source_package
 	build_source_package
+	install_source_package
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
 	cd $CROSS_TOOLCHAIN_RECIPES
     else

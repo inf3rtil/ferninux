@@ -2,7 +2,7 @@
 
 PACKAGE_NAME="kjsembed"
 VERSION="5.109.0"
-DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kjsembed-5.109.0.tar.xz"
+DOWNLOAD_URL="https://download.kde.org/stable/frameworks/5.109/kjsembed-5.109.0.tar.gz"
 MD5_SUM="b9ab15ac90dece7fa6b623be95ef40f9"
 SRC_COMPRESSED_FILE=$(echo $DOWNLOAD_URL | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION

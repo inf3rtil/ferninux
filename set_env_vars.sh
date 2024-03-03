@@ -9,6 +9,7 @@ export INIT_SYSTEM=systemd
 # Directories 
 export WORK_DIR=$PWD
 export BUILD_DIR=$WORK_DIR/build
+export TEMP=$BUILD_DIR/temp
 export LFS=$BUILD_DIR/lfs
 export CHROOT_SCRIPTS_DIR=$WORK_DIR/install_scripts
 export BACKUP_DIR=$WORK_DIR/backup
@@ -31,8 +32,7 @@ export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 export TARGET_PHY_DISK=' '
 
 # Download
-#TODO CUSTOM_SOURCES_PATH=
-export WGET_FILE=$WORK_DIR/util/wget_list_systemd
+export DOWNLOADED_FILES=$WORK_DIR/dowloads/download_success
 export CHECKSUM_FILE=$WORK_DIR/util/sources_md5
 
 # Build

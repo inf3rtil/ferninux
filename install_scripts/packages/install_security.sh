@@ -24,6 +24,7 @@ recipes+=(security/libpwquality)
 recipes+=(security/nettle)
 recipes+=(libraries/libunistring)
 recipes+=(security/gnutls)
+recipes+=(security/iptables)
 
 install_package_list
 
