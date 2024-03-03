@@ -12,25 +12,22 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=linux
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="370e1b6155ae63133380e421146619e0"
+DOWNLOAD_URLS[$MD5_SUM]="https://www.kernel.org/pub/linux/kernel/v6.x/linux-$VERSION.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    make mrproper
 }
 
 build_source_package(){
-    make $MAKEFLAGS
-}
-
-test_source_package(){
-    echo "tests are not implemented for this package"
+    make headers
+    find usr/include -type f ! -name '*.h' -delete
 }
 
 install_source_package(){
-    make install
+    cp -rv usr/include $LFS/usr
 }

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -e
 
 if [[ -z $ENV_VARS_EXPORTED ]]; then
     echo "Env variables not found, probable solutions:"
@@ -10,8 +9,9 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 # 1 - get download urls and checksum hash of all recipes
-rm $TEMP/recipe_list.txt
-rm $CHECKSUM_FILE
+rm $TEMP/recipe_list.txt 2> /dev/null
+rm $CHECKSUM_FILE 2> /dev/null
+
 declare -a recipes_path=()
 declare -a recipe_files=()
 recipes_path+=($WORK_DIR/cross_toolchain/recipes)

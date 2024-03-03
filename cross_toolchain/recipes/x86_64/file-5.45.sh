@@ -12,19 +12,27 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=file
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="26b2a96d4e3a8938827a1e572afd527a"
+DOWNLOAD_URLS[$MD5_SUM]="https://astron.com/pub/file/file-5.45.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    mkdir build
+    pushd build
+    ../configure --disable-bzlib      \
+		 --disable-libseccomp \
+		 --disable-xzlib      \
+		 --disable-zlib
+    make
+    popd
+    ./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make FILE_COMPILE=$(pwd)/build/src/file $MAKEFLAGS
 }
 
 test_source_package(){
@@ -32,5 +40,6 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make DESTDIR=$LFS install
+    rm -v $LFS/usr/lib/libmagic.la
 }
