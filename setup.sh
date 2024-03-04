@@ -38,7 +38,6 @@ while true; do
 	1 )
 	    $WORK_DIR/util/create_env.sh
 	    $WORK_DIR/util/add_lfs_user.sh
-	    $WORK_DIR/util/get_url_from_recipes.sh
 	    $WORK_DIR/util/download_sources.sh
 	    ;;
 	2 )
