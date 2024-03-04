@@ -13,7 +13,7 @@ src_file=$BASH_SOURCE
 
 # package details
 PACKAGE_NAME=ncurses
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
+VERSION="6.4-20230520"
 MD5_SUM="c5367e829b6d9f3f97b280bb3e6bfbc3"
 DOWNLOAD_URLS[$MD5_SUM]="https://anduin.linuxfromscratch.org/LFS/ncurses-6.4-20230520.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
