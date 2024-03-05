@@ -15,7 +15,7 @@ rm $CHECKSUM_FILE 2> /dev/null
 declare -a recipes_path=()
 declare -a recipe_files=()
 recipes_path+=($WORK_DIR/cross_toolchain/recipes)
-#recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes)
+recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes)
 #recipes_path+=($WORK_DIR/install_scripts/basic_system/recipes)
 #recipes_path+=($WORK_DIR/install_scripts/packages/recipes)
 

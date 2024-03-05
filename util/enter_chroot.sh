@@ -22,7 +22,7 @@ mkdir -pv $LFS/{dev,proc,sys,run}
 
 #ferninux to run scripts inside chrooted env
 mkdir -pv $LFS/script
-cp -prv $CHROOT_SCRIPTS_DIR/* $LFS/script/
+cp -pr $CHROOT_SCRIPTS_DIR/* $LFS/script/
 
 mount -v --bind /dev $LFS/dev
 mount -v --bind /dev/pts $LFS/dev/pts
@@ -38,6 +38,10 @@ fi
 
 findmnt | grep $LFS
 
+if [[ $AUTOINSTALL -eq 1 ]]; then
+    chroot_script="/script/ferninux.sh"
+fi
+
 chroot "$LFS" /usr/bin/env -i \
        HOME=/root \
        TERM="$TERM" \
@@ -49,7 +53,7 @@ chroot "$LFS" /usr/bin/env -i \
        INSTALLED_PACKAGES_FILE=$INSTALLED_PACKAGES_FILE \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
-       /bin/bash --login #/script/ferninux.sh
+       /bin/bash --login $chroot_script
 
 echo "unmounting virtual filesystem"
 umount -v $LFS/dev/pts
