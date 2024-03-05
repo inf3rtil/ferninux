@@ -47,7 +47,9 @@ while true; do
 	    $WORK_DIR/util/umount_devices.sh
 	    ;;
 	3 )
+	    export AUTOINSTALL=1
 	    $WORK_DIR/util/enter_chroot.sh
+	    unset AUTOINSTALL
 	    ;;
 	4 )
 	    $WORK_DIR/util/start_qemu.sh
