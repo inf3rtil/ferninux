@@ -4,6 +4,7 @@
 export FERNINUX_TARGET_ARCH=x86_64
 export USE_UEFI=1
 export INIT_SYSTEM=systemd
+export KERNEL_VERSION=6.7.4
 #TODO export USE_DEFAULT_KERNEL=1
 
 # Directories 

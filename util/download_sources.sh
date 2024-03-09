@@ -16,7 +16,7 @@ declare -a recipes_path=()
 declare -a recipe_files=()
 recipes_path+=($WORK_DIR/cross_toolchain/recipes)
 recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes)
-#recipes_path+=($WORK_DIR/install_scripts/basic_system/recipes)
+recipes_path+=($WORK_DIR/install_scripts/basic_system/recipes)
 #recipes_path+=($WORK_DIR/install_scripts/packages/recipes)
 
 for recipe_path in "${recipes_path[@]}"
@@ -30,11 +30,14 @@ while read recipe; do
     . $recipe
     for md5 in "${!DOWNLOAD_URLS[@]}"
     do
-	url="${DOWNLOAD_URLS[$md5]}"
 	checksum=$md5
-	echo "$url : $checksum"
-	if [ ! -f $DOWNLOAD_DIR/$SRC_COMPRESSED_FILE ]; then
-	    wget $url --continue --directory-prefix=$DOWNLOAD_DIR
+	url="${DOWNLOAD_URLS[$checksum]}"
+	compressed_file=$(echo ${url} | rev | cut -d '/' -f 1 | rev)
+	echo "Url:$url"
+	echo "File:$compressed_file"
+	echo "MD5:$checksum"
+	if [ ! -f $DOWNLOAD_DIR/$compressed_file ]; then
+	    wget -q --show-progress $url --continue --directory-prefix=$DOWNLOAD_DIR
 	else
 	    echo "file $SRC_COMPRESSED_FILE already retrieved"
 	fi
@@ -42,6 +45,8 @@ while read recipe; do
 	echo "$md5  $file" >> $CHECKSUM_FILE
     done
 done < $TEMP/recipe_list.txt
+
+set -e
 
 # 3 - verify md5
 pushd $DOWNLOAD_DIR
