@@ -12,19 +12,19 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=man-pages
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="26b39e38248144156d437e1e10cb20bf"
+DOWNLOAD_URLS[$MD5_SUM]="https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.06.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    rm -v man3/crypt*
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    echo "no build required"
 }
 
 test_source_package(){
@@ -32,5 +32,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make prefix=/usr install
 }

@@ -2,23 +2,21 @@
 
 set -e
 
-declare recipes=()
-#recipes+=(gettext-0.22.4)
-#recipes+=(bison-3.8.2)
-#recipes+=(perl-5.38.2)
-recipes+=(python-3.12.2)
-recipes+=(texinfo-7.1)
-recipes+=(util-linux-2.39.3)
-
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
 RECIPES_DIR=$SCRIPT_PATH/recipes/$FERNINUX_TARGET_ARCH
 SOURCES_ROOT_DIR=/sources
 
-echo $RECIPES_DIR
-
 cd $RECIPES_DIR
+
+declare recipes=()
+recipes+=(gettext-0.22.4)
+recipes+=(bison-3.8.2)
+recipes+=(perl-5.38.2)
+recipes+=(python-3.12.2)
+recipes+=(texinfo-7.1)
+recipes+=(util-linux-2.39.3)
 
 for file in "${recipes[@]}"
 do

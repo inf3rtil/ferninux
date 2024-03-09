@@ -42,6 +42,10 @@ if [[ $AUTOINSTALL -eq 1 ]]; then
     chroot_script="/script/ferninux.sh"
 fi
 
+if [[ $INSTALL_KERNEL -eq 1 ]]; then
+    chroot_script="/script/kernel/build_linux_kernel.sh"
+fi
+    
 chroot "$LFS" /usr/bin/env -i \
        HOME=/root \
        TERM="$TERM" \

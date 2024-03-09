@@ -12,19 +12,19 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=wheel
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="802ad6e5f9336fcb1c76b7593f0cd22d"
+DOWNLOAD_URLS[$MD5_SUM]="https://pypi.org/packages/source/w/wheel/wheel-0.42.0.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 }
 
 test_source_package(){
@@ -32,5 +32,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    pip3 install --no-index --find-links=dist wheel
 }

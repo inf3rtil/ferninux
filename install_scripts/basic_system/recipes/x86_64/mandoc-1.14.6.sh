@@ -12,27 +12,26 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=expat
+PACKAGE_NAME=mandoc
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM="bd169cb11f4b9bdfddadf9e88a5c4d4b"
-DOWNLOAD_URLS[$MD5_SUM]="https://prdownloads.sourceforge.net/expat/expat-2.6.0.tar.xz"
+MD5_SUM="f0adf24e8fdef5f3e332191f653e422a"
+DOWNLOAD_URLS[$MD5_SUM]="https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-    ./configure --prefix=/usr    \
-		--disable-static \
-		--docdir=/usr/share/doc/expat-2.6.0
+    ./configure
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make $MAKEFLAGS mandoc
 }
 
 test_source_package(){
-    make check
+    echo "tests are not implemented for this package"
 }
 
 install_source_package(){
-    make install
+    install -vm755 mandoc   /usr/bin &&
+	install -vm644 mandoc.1 /usr/share/man/man1
 }

@@ -12,15 +12,15 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=findutils
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="4a4a547e888a944b2f3af31d789a1137"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/findutils/findutils-4.9.0.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr --localstatedir=/var/lib/locate
 }
 
 build_source_package(){
@@ -28,7 +28,8 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    chown -R tester .
+    su tester -c "PATH=$PATH make check"
 }
 
 install_source_package(){

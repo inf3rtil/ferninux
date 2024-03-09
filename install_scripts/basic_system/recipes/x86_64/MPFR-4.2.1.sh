@@ -12,25 +12,31 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=mpfr
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="523c50c6318dde6f9dc523bc0244690a"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
+    ./configure --prefix=/usr        \
+		--disable-static     \
+		--enable-thread-safe \
+		--docdir=/usr/share/doc/mpfr-4.2.1
+}
 
+test_source_package(){
+    make check
 }
 
 build_source_package(){
     make $MAKEFLAGS
-}
-
-test_source_package(){
-    echo "tests are not implemented for this package"
+    make html
+    test_source_package
 }
 
 install_source_package(){
     make install
+    make install-html
 }

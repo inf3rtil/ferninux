@@ -12,25 +12,26 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=zstd
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="63251602329a106220e0a5ad26ba656f"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/facebook/zstd/releases/download/v1.5.5/zstd-1.5.5.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make prefix=/usr $MAKEFLAGS
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){
-    make install
+    make prefix=/usr install
+    rm -v /usr/lib/libzstd.a
 }

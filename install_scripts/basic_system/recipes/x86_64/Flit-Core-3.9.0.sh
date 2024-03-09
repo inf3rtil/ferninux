@@ -12,19 +12,19 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=flit_core
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="3bc52f1952b9a78361114147da63c35b"
+DOWNLOAD_URLS[$MD5_SUM]="https://pypi.org/packages/source/f/flit-core/flit_core-3.9.0.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 }
 
 test_source_package(){
@@ -32,5 +32,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    pip3 install --no-index --no-user --find-links dist flit_core
 }

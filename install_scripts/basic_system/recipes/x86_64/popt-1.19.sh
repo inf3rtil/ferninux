@@ -12,24 +12,15 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=dbus
+PACKAGE_NAME=popt
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM="46070a3487817ff690981f8cd2ba9376"
-DOWNLOAD_URLS[$MD5_SUM]="https://dbus.freedesktop.org/releases/dbus/dbus-1.14.10.tar.xz"
+MD5_SUM="eaa2135fddb6eb03f2c87ee1823e5a78"
+DOWNLOAD_URLS[$MD5_SUM]="http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-    ./configure --prefix=/usr                        \
-		--sysconfdir=/etc                    \
-		--localstatedir=/var                 \
-		--runstatedir=/run                   \
-		--enable-user-session                \
-		--disable-static                     \
-		--disable-doxygen-docs               \
-		--disable-xml-docs                   \
-		--docdir=/usr/share/doc/dbus-1.14.10 \
-		--with-system-socket=/run/dbus/system_bus_socket
+    ./configure --prefix=/usr --disable-static
 }
 
 build_source_package(){
@@ -37,10 +28,9 @@ build_source_package(){
 }
 
 test_source_package(){
-    make check
+    echo "tests are not implemented for this package"
 }
 
 install_source_package(){
     make install
-    ln -sfv /etc/machine-id /var/lib/dbus
 }

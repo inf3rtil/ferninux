@@ -12,15 +12,15 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=check
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="50fcafcecde5a380415b12e9c574e0b2"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr --disable-static
 }
 
 build_source_package(){
@@ -28,9 +28,9 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){
-    make install
+    make docdir=/usr/share/doc/check-0.15.2 install
 }

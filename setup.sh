@@ -15,10 +15,11 @@ while true; do
 		    --menu "Exec script" 0 0 6 \
 		    "1" "Create Project" \
 		    "2" "Build Cross-Toolchain" \
-		    "3" "Build Linux system" \
-		    "4" "Start QEMU" \
-		    "5" "Write image to disk" \
-		    "6" "Clear Project" \
+		    "3" "Build Root filesystem" \
+		    "4" "Build Linux Kernel" \
+		    "5" "Start QEMU" \
+		    "6" "Write image to disk" \
+		    "7" "Clear Project" \
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-
@@ -52,14 +53,19 @@ while true; do
 	    unset AUTOINSTALL
 	    ;;
 	4 )
-	    $WORK_DIR/util/start_qemu.sh
+	    export INSTALL_KERNEL=1
+	    $WORK_DIR/util/enter_chroot.sh
+	    unset INSTALL_KERNEL
 	    ;;
 	5 )
-	    dd if=$WORK_DIR/build/$VDISK_FILENAME $TARGET_PHY_DISK
+	    echo "TODO: not ready"
 	    ;;
 	6 )
+	    echo "TODO: not ready"
+	    ;;
+	7 )
 	    $WORK_DIR/util/clean.sh
-	    ;; 
+	    ;;
     esac
     echo "Press any key to continue"
     read -n 1 -s

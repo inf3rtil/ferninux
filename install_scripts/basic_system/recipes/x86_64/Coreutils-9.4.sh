@@ -12,15 +12,22 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=coreutils
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="459e9546074db2834eefe5421f250025"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/coreutils/coreutils-9.4.tar.xz"
+DOWNLOAD_URLS["cca7dc8c73147444e77bc45d210229bb"]="https://www.linuxfromscratch.org/patches/lfs/12.1/coreutils-9.4-i18n-1.patch"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    patch -Np1 -i ../coreutils-9.4-i18n-1.patch
+    sed -e '/n_out += n_hold/,+4 s|.*bufsize.*|//&|' \
+	-i src/split.c
+    autoreconf -fiv
+    FORCE_UNSAFE_CONFIGURE=1 ./configure \
+			     --prefix=/usr            \
+			     --enable-no-install-program=kill,uptime
 }
 
 build_source_package(){
@@ -28,9 +35,16 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make NON_ROOT_USERNAME=tester check-root
+    groupadd -g 102 dummy -U tester
+    chown -R tester .
+    su tester -c "PATH=$PATH make RUN_EXPENSIVE_TESTS=yes check"
+    groupdel dummy
 }
 
 install_source_package(){
     make install
+    mv -v /usr/bin/chroot /usr/sbin
+    mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+    sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
 }

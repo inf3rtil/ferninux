@@ -12,15 +12,15 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=gperf
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="9e251c0a618ad0824b51117d5d9db87e"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
 }
 
 build_source_package(){
@@ -28,7 +28,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make -j1 check
 }
 
 install_source_package(){

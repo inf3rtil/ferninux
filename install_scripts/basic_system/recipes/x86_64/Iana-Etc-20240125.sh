@@ -12,19 +12,19 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=iana-etc
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="aed66d04de615d76c70890233081e584"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/Mic92/iana-etc/releases/download/20240125/iana-etc-20240125.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    echo "no config needed"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    echo "no build needed"
 }
 
 test_source_package(){
@@ -32,5 +32,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    cp services protocols /etc
 }

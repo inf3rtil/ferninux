@@ -12,15 +12,17 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=elfutils
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="79ad698e61a052bea79e77df6a08bc4b"
+DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/ftp/elfutils/0.190/elfutils-0.190.tar.bz2"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr                \
+		--disable-debuginfod         \
+		--enable-libdebuginfod=dummy
 }
 
 build_source_package(){
@@ -28,9 +30,11 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){
-    make install
+    make -C libelf install
+    install -vm644 config/libelf.pc /usr/lib/pkgconfig
+    rm /usr/lib/libelf.a
 }

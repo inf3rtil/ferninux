@@ -12,25 +12,35 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=gmp
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="956dc04e864001a9c22429f761f2c283"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
+    ./configure --prefix=/usr    \
+		--enable-cxx     \
+		--disable-static \
+		--host=none-linux-gnu \
+		--docdir=/usr/share/doc/gmp-6.3.0
+}
 
+test_source_package(){
+    make check 2>&1 | tee gmp-check-log
+    mkdir -pv /build_log/gmp
+    cp gmp-check-log /build_log/gmp/
+    awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log >>  /build_log/gmp/output.log
 }
 
 build_source_package(){
     make $MAKEFLAGS
-}
-
-test_source_package(){
-    echo "tests are not implemented for this package"
+    make html
+    test_source_package
 }
 
 install_source_package(){
     make install
+    make install-html
 }

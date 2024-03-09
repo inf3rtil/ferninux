@@ -12,27 +12,25 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=expat
+PACKAGE_NAME=efibootmgr
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM="bd169cb11f4b9bdfddadf9e88a5c4d4b"
-DOWNLOAD_URLS[$MD5_SUM]="https://prdownloads.sourceforge.net/expat/expat-2.6.0.tar.xz"
+MD5_SUM="e170147da25e1d5f72721ffc46fe4e06"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-    ./configure --prefix=/usr    \
-		--disable-static \
-		--docdir=/usr/share/doc/expat-2.6.0
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make EFIDIR=LFS EFI_LOADER=grubx64.efi
 }
 
 test_source_package(){
-    make check
+    echo "tests are not implemented for this package"
 }
 
 install_source_package(){
-    make install
+    make install EFIDIR=LFS
 }

@@ -12,15 +12,15 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
+PACKAGE_NAME=bc
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="e249b1f86f886d6fb71c15f72b65dd3d"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/gavinhoward/bc/releases/download/6.7.5/bc-6.7.5.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    CC=gcc ./configure --prefix=/usr -G -O3 -r
 }
 
 build_source_package(){
@@ -28,7 +28,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    nake test
 }
 
 install_source_package(){

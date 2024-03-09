@@ -12,15 +12,23 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+PACKAGE_NAME=ncurses
+VERSION="6.4-20230520"
+MD5_SUM="c5367e829b6d9f3f97b280bb3e6bfbc3"
+DOWNLOAD_URLS[$MD5_SUM]="https://anduin.linuxfromscratch.org/LFS/ncurses-6.4-20230520.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr           \
+		--mandir=/usr/share/man \
+		--with-shared           \
+		--without-debug         \
+		--without-normal        \
+		--with-cxx-shared       \
+		--enable-pc-files       \
+		--enable-widec          \
+		--with-pkg-config-libdir=/usr/lib/pkgconfig
 }
 
 build_source_package(){
@@ -32,5 +40,15 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make DESTDIR=$PWD/dest install
+    install -vm755 dest/usr/lib/libncursesw.so.6.4 /usr/lib
+    rm -v  dest/usr/lib/libncursesw.so.6.4
+    sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+	-i dest/usr/include/curses.h
+    cp -av dest/* /
+    for lib in ncurses form panel menu ; do
+	ln -sfv lib${lib}w.so /usr/lib/lib${lib}.so
+	ln -sfv ${lib}w.pc    /usr/lib/pkgconfig/${lib}.pc
+    done
+    ln -sfv libncursesw.so /usr/lib/libcurses.so
 }
