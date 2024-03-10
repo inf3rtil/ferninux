@@ -12,8 +12,8 @@ $SCRIPT_PATH/basic_system/build_basic_system.sh #chapter 8
 $SCRIPT_PATH/basic_system/system_config/$FERNINUX_TARGET_ARCH/create_conf_files.sh #chapter 9
 $SCRIPT_PATH/basic_system/system_config/$FERNINUX_TARGET_ARCH/config_systemd.sh #chapter 9
 $SCRIPT_PATH/basic_system/system_config/$FERNINUX_TARGET_ARCH/create_fstab.sh #chapter 10
-#$SCRIPT_PATH/basic_system/install_bootloader.sh #chapter 10
-#$SCRIPT_PATH/basic_system/finish_install.sh #chapter 11
+$SCRIPT_PATH/basic_system/install_bootloader.sh #chapter 10
+$SCRIPT_PATH/basic_system/finish_install.sh #chapter 11
 #$SCRIPT_PATH/post_install/create_iniramfs.sh
 #TODO: move for another script
 #$SCRIPT_PATH/post_install/bash_startup_files.sh #BLFS
