@@ -3,6 +3,7 @@
 declare -A packages_index
 
 # basic system
+packages_index["basic/essential-files"]="1.0.0"
 packages_index["basic/Acl"]="2.3.2"
 packages_index["basic/Attr"]="2.5.2"
 packages_index["basic/Autoconf"]="2.72"

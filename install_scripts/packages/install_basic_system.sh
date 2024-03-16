@@ -10,6 +10,7 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 mkdir -p /build_log
 
 declare -a recipes=()
+recipes+=(basic/essential-files)
 recipes+=(basic/Man-pages)
 recipes+=(basic/Iana-Etc)
 recipes+=(basic/Glibc)

@@ -4,8 +4,8 @@
 export FERNINUX_TARGET_ARCH=x86_64
 export USE_UEFI=1
 export INIT_SYSTEM=systemd
-export KERNEL_VERSION=6.7.4
-#TODO export USE_DEFAULT_KERNEL=1
+export FERNINUX_KERNEL_VERSION=6.7.4
+export USE_DEFAULT_KERNEL_CONFIG=1
 
 # Directories 
 export WORK_DIR=$PWD
@@ -15,7 +15,6 @@ export LFS=$BUILD_DIR/lfs
 export CHROOT_SCRIPTS_DIR=$WORK_DIR/install_scripts
 export BACKUP_DIR=$WORK_DIR/backup
 export BACKUP_FILE=ferninux_backup.tar.xz
-export DOWNLOAD_DIR=$WORK_DIR/downloads
 
 # User
 export LFS_USER=ferninux
@@ -33,8 +32,10 @@ export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 export TARGET_PHY_DISK=' '
 
 # Download
+export KEEP_DOWNLOAD_FILES=1
 export DOWNLOADED_FILES=$WORK_DIR/dowloads/download_success
 export CHECKSUM_FILE=$WORK_DIR/util/sources_md5
+export DOWNLOAD_DIR=$WORK_DIR/downloads
 
 # Build
 export MAKEFLAGS="-j16"

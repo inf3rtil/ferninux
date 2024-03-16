@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [[ -z $ENV_VARS_EXPORTED ]]; then
     echo "Env variables not found, probable solutions:"
     echo "1 - source set_env_vars.sh"
@@ -14,10 +13,9 @@ rm $CHECKSUM_FILE 2> /dev/null
 
 declare -a recipes_path=()
 declare -a recipe_files=()
-recipes_path+=($WORK_DIR/cross_toolchain/recipes)
-recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes)
-recipes_path+=($WORK_DIR/install_scripts/basic_system/recipes)
-#recipes_path+=($WORK_DIR/install_scripts/packages/recipes)
+recipes_path+=($WORK_DIR/cross_toolchain/recipes/$FERNINUX_TARGET_ARCH)
+recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes/$FERNINUX_TARGET_ARCH)
+recipes_path+=($WORK_DIR/install_scripts/packages/recipes/$FERNINUX_TARGET_ARCH)
 
 for recipe_path in "${recipes_path[@]}"
 do
@@ -53,7 +51,7 @@ pushd $DOWNLOAD_DIR
   md5sum -c $CHECKSUM_FILE
 popd
 
-# 4 - copy downloaded files to target
+# 4 - copy downloaded files to root
 $WORK_DIR/util/mount_devices.sh
 mkdir -pv $LFS/sources
 chmod -v a+wt $LFS/sources
