@@ -19,7 +19,7 @@ while true; do
 		    "4" "Build Linux Kernel" \
 		    "5" "Start QEMU" \
 		    "6" "Write image to disk" \
-		    "7" "Clear Project" \
+		    "7" "Clear Project(CAUTION)" \
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-
