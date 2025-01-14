@@ -20,7 +20,7 @@ esac
 
 mkdir -pv $LFS/{dev,proc,sys,run}
 
-#ferninux to run scripts inside chrooted env
+# install ferninux scripts to run inside chrooted env
 mkdir -pv $LFS/script
 cp -pr $CHROOT_SCRIPTS_DIR/* $LFS/script/
 
@@ -38,6 +38,7 @@ fi
 
 findmnt | grep $LFS
 
+# select a autorun script
 if [[ $AUTOINSTALL -eq 1 ]]; then
     chroot_script="/script/ferninux.sh"
 fi
@@ -55,6 +56,8 @@ chroot "$LFS" /usr/bin/env -i \
        USE_UEFI=$USE_UEFI \
        FERNINUX_TARGET_ARCH=$FERNINUX_TARGET_ARCH \
        INSTALLED_PACKAGES_FILE=$INSTALLED_PACKAGES_FILE \
+       FERNINUX_KERNEL_VERSION=$FERNINUX_KERNEL_VERSION \
+       USE_DEFAULT_KERNEL_CONFIG=$USE_DEFAULT_KERNEL_CONFIG \
        $(cat $BUILD_DIR/diskinfo) \
        DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
        /bin/bash --login $chroot_script
