@@ -13,8 +13,6 @@ Work concepts based on Linux from scratch, Slackware, Gentoo and many other syst
  - Raw disk image created with dd
  - Mounted as loop device
  - Ready to run with qemu or copied to disk after build done
- 
-# 
 
 # Software recipes
 organized by subprojects, each subproject has a master script that contains a list of all recipes to build
@@ -24,11 +22,18 @@ organized by subprojects, each subproject has a master script that contains a li
  
  path format: subproject/recipes/arch/optional_category/software-version.sh
 
-each recipe has 3 functions
+## Recipe metadata
+ - download urls
+ - md5 checksums
+ - compressed file
+ - src folder
+ 
+## Recipe functions
  - config
  - build
  - test
  - install
  
 # Downloads
- - Software sources download file format package-name;version;url;
+ - Extract urls from recipes to generate download list
+ 
