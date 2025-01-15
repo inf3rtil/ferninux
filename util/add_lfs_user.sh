@@ -39,7 +39,7 @@ LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/usr/bin
 if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
 PATH=$LFS/tools/bin:$PATH
-# prevent contamination
+# prevent shell contamination
 CONFIG_SITE=$LFS/usr/share/config.site 
 export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 EOF" $LFS_USER
@@ -47,6 +47,7 @@ EOF" $LFS_USER
 su -c "cat ~/.bashrc" $LFS_USER
 
 if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
+    $WORK_DIR/util/umount_devices.sh
     echo "$VDISK_FILENAME found"
     echo "mounting loop device"
     disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
@@ -55,6 +56,7 @@ if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
 
     echo "mounting root partition "
     mount -v -t ext4 $root_part $LFS
+    echo "mounting boot partition"
     mount -v -t ext2 $boot_part $LFS/boot    
     
     chown -v $LFS_USER $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
@@ -67,7 +69,7 @@ if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
     losetup --verbose -d $disk_loop
 else
     echo "$VDISK_FILENAME not found"
-    echo "Please create env with the Create Env Devices option"
+    echo "Please create env before lfs user"
 fi
 
 
