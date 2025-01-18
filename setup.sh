@@ -39,8 +39,8 @@ while true; do
     case $selection in
 	1 )
 	    create_isolated_env
-	    #$WORK_DIR/util/env/add_lfs_user.sh
-	    #$WORK_DIR/util/downloader/download_sources.sh
+	    add_isolated_user
+	    download_sources
 	    ;;
 	2 )
 	    $WORK_DIR/util/mount_devices.sh
