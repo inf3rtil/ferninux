@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: review use
+
 device=$(mount | grep $LFS | cut -d ' ' -f1)
 
 if [[ -z $device ]]; then
