@@ -17,7 +17,7 @@ VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.
 MD5_SUM="d5c9fc9441288817a4a0be2da0249e29"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gzip/gzip-1.13.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     ./configure --prefix=/usr --host=$LFS_TGT

@@ -17,7 +17,7 @@ VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.
 MD5_SUM="26b2a96d4e3a8938827a1e572afd527a"
 DOWNLOAD_URLS[$MD5_SUM]="https://astron.com/pub/file/file-5.45.tar.gz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     mkdir build

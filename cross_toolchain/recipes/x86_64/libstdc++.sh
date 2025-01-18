@@ -17,7 +17,7 @@ VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.
 MD5_SUM="e0e48554cc6e4f261d55ddee9ab69075"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     mkdir -v build

@@ -17,7 +17,7 @@ VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.
 MD5_SUM="459e9546074db2834eefe5421f250025"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/coreutils/coreutils-9.4.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     ./configure --prefix=/usr                     \

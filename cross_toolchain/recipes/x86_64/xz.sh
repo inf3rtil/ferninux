@@ -17,7 +17,7 @@ VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.
 MD5_SUM="7ade7bd1181a731328f875bec62a9377"
 DOWNLOAD_URLS[$MD5_SUM]="https://github.com/tukaani-project/xz/releases/download/v5.4.6/xz-5.4.6.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     ./configure --prefix=/usr                     \
