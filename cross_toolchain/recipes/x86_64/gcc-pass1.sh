@@ -14,7 +14,8 @@ src_file=$BASH_SOURCE
 # package details
 PACKAGE_NAME=gcc
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
-DOWNLOAD_URLS["e0e48554cc6e4f261d55ddee9ab69075"]="https://ftp.gnu.org/gnu/gcc/gcc-$VERSION/gcc-$VERSION.tar.xz"
+MD5_SUM="e0e48554cc6e4f261d55ddee9ab69075"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
 DOWNLOAD_URLS["523c50c6318dde6f9dc523bc0244690a"]="https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
 DOWNLOAD_URLS["5c9bc658c9fd0f940e8e3e0f09530c62"]="https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz"
 DOWNLOAD_URLS["956dc04e864001a9c22429f761f2c283"]="https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"

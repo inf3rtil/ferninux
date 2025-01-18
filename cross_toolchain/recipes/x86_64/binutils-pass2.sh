@@ -15,7 +15,7 @@ src_file=$BASH_SOURCE
 PACKAGE_NAME=binutils
 VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="a075178a9646551379bfb64040487715"
-DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/pub/binutils/releases/binutils-$VERSION.tar.xz"
+DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/pub/binutils/releases/binutils-2.42.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
 SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
