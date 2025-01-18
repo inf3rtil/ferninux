@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script get url's and mds5 checksum from recipes
+# download the packages, verify the md5 and store
+
 if [[ -z $ENV_VARS_EXPORTED ]]; then
     echo "Env variables not found, probable solutions:"
     echo "1 - source set_env_vars.sh"
@@ -8,8 +11,9 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 # 1 - get download urls and checksum hash of all recipes
+# create 
 rm $TEMP/recipe_list.txt 2> /dev/null
-rm $CHECKSUM_FILE 2> /dev/null
+rm $TEMP/checksum.md5 2> /dev/null
 
 declare -a recipes_path=()
 declare -a recipe_files=()
@@ -40,7 +44,7 @@ while read recipe; do
 	    echo "file $SRC_COMPRESSED_FILE already retrieved"
 	fi
 	file=$(echo ${url} | rev | cut -d '/' -f 1 | rev)
-	echo "$md5  $file" >> $CHECKSUM_FILE
+	echo "$md5  $file" >> $TEMP/checksum.md5
     done
 done < $TEMP/recipe_list.txt
 
@@ -48,7 +52,7 @@ set -e
 
 # 3 - verify md5
 pushd $DOWNLOAD_DIR
-  md5sum -c $CHECKSUM_FILE
+  md5sum -c $TEMP/checksum.md5
 popd
 
 # 4 - copy downloaded files to root
