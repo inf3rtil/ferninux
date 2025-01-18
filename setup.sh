@@ -4,6 +4,7 @@ DIALOG_CANCEL=1
 DIALOG_ESC=255
 
 . set_env_vars.sh
+. set_env_functions.sh
 
 set -e
 
@@ -37,9 +38,9 @@ while true; do
     
     case $selection in
 	1 )
-	    $WORK_DIR/util/create_env.sh
-	    $WORK_DIR/util/add_lfs_user.sh
-	    $WORK_DIR/util/download_sources.sh
+	    create_isolated_env
+	    #$WORK_DIR/util/env/add_lfs_user.sh
+	    #$WORK_DIR/util/downloader/download_sources.sh
 	    ;;
 	2 )
 	    $WORK_DIR/util/mount_devices.sh
