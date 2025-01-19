@@ -11,7 +11,7 @@ if [[ $(whoami) != "root" ]]; then
     exit 1
 fi
 
-$WORK_DIR/util/mount_devices.sh
+mount_devices
 
 chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
 case $(uname -m) in
@@ -38,7 +38,7 @@ fi
 
 findmnt | grep $LFS
 
-# select a autorun script
+# select a autorun script if AUTOINSTALL is set
 if [[ $AUTOINSTALL -eq 1 ]]; then
     chroot_script="/script/ferninux.sh"
 fi
@@ -70,7 +70,7 @@ umount -v $LFS/proc
 umount -v $LFS/sys
 umount -v $LFS/run
 
-$WORK_DIR/util/umount_devices.sh
+umount_devices
 
 findmnt | grep $LFS
 

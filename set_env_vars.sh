@@ -37,7 +37,7 @@ export DOWNLOADED_FILES=$WORK_DIR/dowloads/download_success
 export DOWNLOAD_DIR=$WORK_DIR/downloads
 
 # Build
-export MAKEFLAGS="-j16"
+export MAKEFLAGS="-j32"
 export ENV_VARS_EXPORTED=1
 
 # Distrib
