@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=Python
-VERSION=3.12.2
 MD5_SUM="e7c178b97bf8f7ccd677b94d614f7b3c"
 DOWNLOAD_URLS[$MD5_SUM]="https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tar.xz"
-SRC_COMPRESSED_FILE=$PACKAGE_NAME-$VERSION.tar.xz
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     ./configure --prefix=/usr   \

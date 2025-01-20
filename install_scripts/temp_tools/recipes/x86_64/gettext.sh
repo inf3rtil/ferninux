@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=gettext
-VERSION=0.22.4
 MD5_SUM="2d8507d003ef3ddd1c172707ffa97ed8"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gettext/gettext-0.22.4.tar.xz"
-SRC_COMPRESSED_FILE=$PACKAGE_NAME-$VERSION.tar.xz
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     ./configure --disable-shared
