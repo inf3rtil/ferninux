@@ -20,7 +20,7 @@ DOWNLOAD_URLS["523c50c6318dde6f9dc523bc0244690a"]="https://ftp.gnu.org/gnu/mpfr/
 DOWNLOAD_URLS["5c9bc658c9fd0f940e8e3e0f09530c62"]="https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz"
 DOWNLOAD_URLS["956dc04e864001a9c22429f761f2c283"]="https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS["e0e48554cc6e4f261d55ddee9ab69075"]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     tar -xf ../mpfr-4.2.1.tar.xz

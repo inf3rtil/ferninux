@@ -11,12 +11,12 @@ SOURCES_ROOT_DIR=/sources
 cd $RECIPES_DIR
 
 declare recipes=()
-recipes+=(gettext-0.22.4)
-recipes+=(bison-3.8.2)
-recipes+=(perl-5.38.2)
-recipes+=(python-3.12.2)
-recipes+=(texinfo-7.1)
-recipes+=(util-linux-2.39.3)
+recipes+=(gettext)
+recipes+=(bison)
+recipes+=(perl)
+recipes+=(python)
+recipes+=(texinfo)
+recipes+=(util-linux)
 
 for file in "${recipes[@]}"
 do

@@ -43,10 +43,10 @@ while true; do
 	    download_sources
 	    ;;
 	2 )
-	    $WORK_DIR/util/mount_devices.sh
+	    mount_devices
 	    sudo --preserve-env=WORK_DIR,LFS_USER,ENV_VARS_EXPORTED,LFS,MAKEFLAGS,FERNINUX_TARGET_ARCH -u $LFS_USER \
 		 bash -c 'source ~/.bashrc && $WORK_DIR/cross_toolchain/build_cross_toolchain.sh'
-	    $WORK_DIR/util/umount_devices.sh
+	    umount_devices
 	    ;;
 	3 )
 	    export AUTOINSTALL=1

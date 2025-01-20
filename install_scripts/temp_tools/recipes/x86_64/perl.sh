@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=perl
-VERSION=5.38.2
 MD5_SUM="d3957d75042918a23ec0abac4a2b7e0a"
 DOWNLOAD_URLS[$MD5_SUM]="https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz"
-SRC_COMPRESSED_FILE=$PACKAGE_NAME-$VERSION.tar.xz
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
+SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
 
 config_source_package(){
     sh Configure -des                                        \
