@@ -1,6 +1,7 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
+
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
@@ -9,16 +10,12 @@ declare -A DOWNLOAD_URLS
 declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
-src_file=$BASH_SOURCE
-
 # package details
-PACKAGE_NAME=tcl
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="0e4358aade2f5db8a8b6f2f6d9481ec2"
 DOWNLOAD_URLS[$MD5_SUM]="https://downloads.sourceforge.net/tcl/tcl8.6.13-src.tar.gz"
 DOWNLOAD_URLS["4452f2f6d557f5598cca17b786d6eb68"]="https://downloads.sourceforge.net/tcl/tcl8.6.13-html.tar.gz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME$VERSION
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     SRCDIR=$(pwd)

@@ -1,6 +1,7 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
+
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
@@ -9,15 +10,11 @@ declare -A DOWNLOAD_URLS
 declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
-src_file=$BASH_SOURCE
-
 # package details
-PACKAGE_NAME=popt
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="eaa2135fddb6eb03f2c87ee1823e5a78"
 DOWNLOAD_URLS[$MD5_SUM]="http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     ./configure --prefix=/usr --disable-static

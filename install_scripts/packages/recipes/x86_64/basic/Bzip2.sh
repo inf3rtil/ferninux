@@ -1,6 +1,7 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
+
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
@@ -9,16 +10,12 @@ declare -A DOWNLOAD_URLS
 declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
-src_file=$BASH_SOURCE
-
 # package details
-PACKAGE_NAME=bzip2
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="67e051268d0c475ea773822f7500d0e5"
 DOWNLOAD_URLS[$MD5_SUM]="https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
 DOWNLOAD_URLS["6a5ac7e89b791aae556de0f745916f7f"]="https://www.linuxfromscratch.org/patches/lfs/12.1/bzip2-1.0.8-install_docs-1.patch"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch

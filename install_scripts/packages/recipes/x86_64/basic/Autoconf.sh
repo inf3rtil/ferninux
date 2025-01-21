@@ -1,6 +1,7 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
+
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
@@ -9,11 +10,7 @@ declare -A DOWNLOAD_URLS
 declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
-src_file=$BASH_SOURCE
-
 # package details
-PACKAGE_NAME=autoconf
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="1be79f7106ab6767f18391c5e22be701"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz"
 SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)

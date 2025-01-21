@@ -1,6 +1,7 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
+
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
@@ -9,16 +10,12 @@ declare -A DOWNLOAD_URLS
 declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
-src_file=$BASH_SOURCE
-
 # package details
-PACKAGE_NAME=coreutils
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="459e9546074db2834eefe5421f250025"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/coreutils/coreutils-9.4.tar.xz"
 DOWNLOAD_URLS["cca7dc8c73147444e77bc45d210229bb"]="https://www.linuxfromscratch.org/patches/lfs/12.1/coreutils-9.4-i18n-1.patch"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$PACKAGE_NAME-$VERSION
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     patch -Np1 -i ../coreutils-9.4-i18n-1.patch

@@ -1,6 +1,6 @@
 #!/bin/bash
 # package recipe for ferninux build
-# rename this file as foo-[cfg]-version.sh
+# rename this file as foo-[cfg].sh
 # arrays for download and build
 unset DOWNLOAD_URLS
 unset BUILD_DEPS
