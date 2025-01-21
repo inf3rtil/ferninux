@@ -11,6 +11,7 @@ SOURCES_ROOT_DIR=/sources
 cd $RECIPES_DIR
 
 declare recipes=()
+recipes+=(essential-files)
 recipes+=(gettext)
 recipes+=(bison)
 recipes+=(perl)
@@ -33,6 +34,6 @@ do
 done
 
 echo "cleaning up"
-#rm -rf /usr/share/{info,man,doc}/*
-#find /usr/{lib,libexec} -name \*.la -delete
-#rm -rf /tools
+rm -rf /usr/share/{info,man,doc}/*
+find /usr/{lib,libexec} -name \*.la -delete
+rm -rf /tools
