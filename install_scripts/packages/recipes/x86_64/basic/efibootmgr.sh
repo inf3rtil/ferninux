@@ -11,17 +11,17 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="e170147da25e1d5f72721ffc46fe4e06"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make EFIDIR=LFS EFI_LOADER=grubx64.efi
 }
 
 test_source_package(){
@@ -29,5 +29,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make install EFIDIR=LFS
 }

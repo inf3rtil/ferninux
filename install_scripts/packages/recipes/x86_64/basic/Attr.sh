@@ -11,13 +11,16 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="227043ec2f6ca03c0948df5517f9c927"
+DOWNLOAD_URLS[$MD5_SUM]="https://download.savannah.gnu.org/releases/attr/attr-2.5.2.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr     \
+		--disable-static  \
+		--sysconfdir=/etc \
+		--docdir=/usr/share/doc/attr-2.5.2
 }
 
 build_source_package(){
@@ -25,7 +28,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){

@@ -11,13 +11,18 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="00fce8de158422f5ccd2666512329bd2"
+DOWNLOAD_URLS[$MD5_SUM]="https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    python3 -c 'from pty import spawn; spawn(["echo", "ok"])'
+    ./configure --prefix=/usr           \
+		--with-tcl=/usr/lib     \
+		--enable-shared         \
+		--mandir=/usr/share/man \
+		--with-tclinclude=/usr/include
 }
 
 build_source_package(){
@@ -25,9 +30,10 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make test
 }
 
 install_source_package(){
     make install
+    ln -svf expect5.45.4/libexpect5.45.4.so /usr/lib
 }

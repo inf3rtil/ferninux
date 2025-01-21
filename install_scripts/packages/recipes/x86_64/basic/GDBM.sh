@@ -11,13 +11,15 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="8551961e36bf8c70b7500d255d3658ec"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr    \
+		--disable-static \
+		--enable-libgdbm-compat
 }
 
 build_source_package(){
@@ -25,7 +27,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){

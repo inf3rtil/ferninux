@@ -50,12 +50,12 @@ while true; do
 	    ;;
 	3 )
 	    export AUTOINSTALL=1
-	    $WORK_DIR/util/enter_chroot.sh
+	    enter_chroot
 	    unset AUTOINSTALL
 	    ;;
 	4 )
 	    export INSTALL_KERNEL=1
-	    $WORK_DIR/util/enter_chroot.sh
+	    enter_chroot
 	    unset INSTALL_KERNEL
 	    ;;
 	5 )

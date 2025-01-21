@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="2745c50f6f4e395e7b7d52f902d075bf"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/diffutils/diffutils-3.10.tar.xz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr
 }
 
 build_source_package(){
@@ -25,7 +25,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){

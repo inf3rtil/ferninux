@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="e249b1f86f886d6fb71c15f72b65dd3d"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/gavinhoward/bc/releases/download/6.7.5/bc-6.7.5.tar.xz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    CC=gcc ./configure --prefix=/usr -G -O3 -r
 }
 
 build_source_package(){
@@ -25,7 +25,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    nake test
 }
 
 install_source_package(){

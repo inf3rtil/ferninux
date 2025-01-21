@@ -11,13 +11,15 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="590765dee95907dbc3c856f7255bd669"
+DOWNLOAD_URLS[$MD5_SUM]="https://download.savannah.gnu.org/releases/acl/acl-2.3.2.tar.xz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr         \
+		--disable-static      \
+		--docdir=/usr/share/doc/acl-2.3.2
 }
 
 build_source_package(){

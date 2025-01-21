@@ -11,13 +11,15 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="79ad698e61a052bea79e77df6a08bc4b"
+DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/ftp/elfutils/0.190/elfutils-0.190.tar.bz2"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr                \
+		--disable-debuginfod         \
+		--enable-libdebuginfod=dummy
 }
 
 build_source_package(){
@@ -25,9 +27,11 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){
-    make install
+    make -C libelf install
+    install -vm644 config/libelf.pc /usr/lib/pkgconfig
+    rm /usr/lib/libelf.a
 }

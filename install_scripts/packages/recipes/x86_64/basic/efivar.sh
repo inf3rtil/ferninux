@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="a8fc3e79336cd6e738ab44f9bc96a5aa"
+DOWNLOAD_URLS[$MD5_SUM]="https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    echo "no build"
 }
 
 build_source_package(){
@@ -29,5 +29,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make install LIBDIR=/usr/lib
 }

@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="26b2a96d4e3a8938827a1e572afd527a"
+DOWNLOAD_URLS[$MD5_SUM]="https://astron.com/pub/file/file-5.45.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr
 }
 
 build_source_package(){
@@ -25,7 +25,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){

@@ -11,17 +11,17 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="caf5418c851eac59e70a78d9730d4cea"
+DOWNLOAD_URLS[$MD5_SUM]="https://pypi.org/packages/source/J/Jinja2/Jinja2-3.1.3.tar.gz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    echo "no config"
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 }
 
 test_source_package(){
@@ -29,5 +29,5 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    pip3 install --no-index --no-user --find-links dist Jinja2
 }

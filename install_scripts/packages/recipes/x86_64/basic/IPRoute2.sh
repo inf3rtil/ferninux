@@ -11,17 +11,18 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="35d8277d1469596b7edc07a51470a033"
+DOWNLOAD_URLS[$MD5_SUM]="https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-6.7.0.tar.xz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    sed -i /ARPD/d Makefile
+    rm -fv man/man8/arpd.8
 }
 
 build_source_package(){
-    make $MAKEFLAGS
+    make $MAKEFLAGS NETNS_RUN_DIR=/run/netns
 }
 
 test_source_package(){
@@ -29,5 +30,7 @@ test_source_package(){
 }
 
 install_source_package(){
-    make install
+    make SBINDIR=/usr/sbin install
+    mkdir -pv             /usr/share/doc/iproute2-6.7.0
+    cp -v COPYING README* /usr/share/doc/iproute2-6.7.0
 }

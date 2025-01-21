@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
-SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
-SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
+MD5_SUM="1be79f7106ab6767f18391c5e22be701"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz"
+SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
+SRC_FOLDER=$PACKAGE_NAME-$VERSION
 
 config_source_package(){
-
+    ./configure --prefix=/usr
 }
 
 build_source_package(){
@@ -25,7 +25,7 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){

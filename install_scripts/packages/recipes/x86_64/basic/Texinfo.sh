@@ -11,13 +11,13 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-MD5_SUM=""
-DOWNLOAD_URLS[$MD5_SUM]=""
+MD5_SUM="edd9928b4a3f82674bcc3551616eef3b"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/texinfo/texinfo-7.1.tar.xz"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-
+    ./configure --prefix=/usr
 }
 
 build_source_package(){
@@ -25,9 +25,16 @@ build_source_package(){
 }
 
 test_source_package(){
-    echo "tests are not implemented for this package"
+    make check
 }
 
 install_source_package(){
     make install
+    make TEXMF=/usr/share/texmf install-tex
+    pushd /usr/share/info
+    rm -v dir
+    for f in *
+    do install-info $f dir 2>/dev/null
+    done
+    popd
 }
