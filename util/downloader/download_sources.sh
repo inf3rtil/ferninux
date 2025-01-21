@@ -19,8 +19,8 @@ download_sources() {
     declare -a recipes_path=()
     declare -a recipe_files=()
     recipes_path+=($WORK_DIR/cross_toolchain/recipes/$FERNINUX_TARGET_ARCH)
-    #recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes/$FERNINUX_TARGET_ARCH)
-    #recipes_path+=($WORK_DIR/install_scripts/packages/recipes/$FERNINUX_TARGET_ARCH)
+    recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes/$FERNINUX_TARGET_ARCH)
+    recipes_path+=($WORK_DIR/install_scripts/packages/recipes/$FERNINUX_TARGET_ARCH/basic)
 
     echo "Downloading sources..."
     for recipe_path in "${recipes_path[@]}"
@@ -34,19 +34,19 @@ download_sources() {
 	. $recipe
 	for md5 in "${!DOWNLOAD_URLS[@]}"
 	do
-	    checksum=$md5
-	    url="${DOWNLOAD_URLS[$checksum]}"
-	    compressed_file=$(echo ${url} | rev | cut -d '/' -f 1 | rev)
-	    echo "Url:$url"
-	    echo "File:$compressed_file"
-	    echo "MD5:$checksum"
-	    if [ ! -f $DOWNLOAD_DIR/$compressed_file ]; then
-		wget -q --show-progress $url --continue --directory-prefix=$DOWNLOAD_DIR
-	    else
-		echo "file $SRC_COMPRESSED_FILE already retrieved"
+	    if [[ -v SRC_COMPRESSED_FILE ]]; then
+		url="${DOWNLOAD_URLS[$md5]}"
+		echo "Url:$url"
+		echo "File:$SRC_COMPRESSED_FILE"
+		echo "MD5:$md5"
+		if [ ! -f $DOWNLOAD_DIR/$(basename ${url}) ]; then
+		    wget -v --show-progress $url --continue --directory-prefix=$DOWNLOAD_DIR
+		else
+		    echo "file $SRC_COMPRESSED_FILE already retrieved"
+		fi
+		file=$(basename ${url})
+		echo "$md5  $file" >> $TEMP/checksum.md5
 	    fi
-	    file=$(echo ${url} | rev | cut -d '/' -f 1 | rev)
-	    echo "$md5  $file" >> $TEMP/checksum.md5
 	done
     done < $TEMP/recipe_list.txt
 
@@ -61,7 +61,7 @@ download_sources() {
     mount_devices
     mkdir -pv $LFS/sources
     chmod -v a+wt $LFS/sources
-    cp -r $DOWNLOAD_DIR/* $LFS/sources/
+    cp -vr $DOWNLOAD_DIR/* $LFS/sources/
     umount_devices
 
 }
