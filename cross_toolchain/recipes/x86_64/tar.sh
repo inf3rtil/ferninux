@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=tar
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="a2d8042658cfd8ea939e6d911eaf4152"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/tar/tar-1.35.tar.xz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     ./configure --prefix=/usr   \

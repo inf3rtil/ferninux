@@ -48,7 +48,6 @@ recipes+=(gcc-pass2)
 # build cross compiler
 for file in "${recipes[@]}"
 do
-    if [ -x "$file.sh" ]; then
         . ./"$file.sh"
 	echo "extracting files from $SRC_COMPRESSED_FILE"
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
@@ -59,10 +58,6 @@ do
 	install_source_package
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
 	cd $CROSS_TOOLCHAIN_RECIPES
-    else
-        echo "File $file is not executable."
-	exit 1
-    fi
 done
 
 

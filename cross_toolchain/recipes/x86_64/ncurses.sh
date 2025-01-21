@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=ncurses
-VERSION="6.4-20230520"
 MD5_SUM="c5367e829b6d9f3f97b280bb3e6bfbc3"
 DOWNLOAD_URLS[$MD5_SUM]="https://anduin.linuxfromscratch.org/LFS/ncurses-6.4-20230520.tar.xz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     sed -i s/mawk// configure
