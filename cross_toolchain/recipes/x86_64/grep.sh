@@ -12,12 +12,11 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=grep
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="7c9bbd74492131245f7cdb291fa142c0"
 DOWNLOAD_URLS[$MD5_SUM]="https://ftp.gnu.org/gnu/grep/grep-3.11.tar.xz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
+
 config_source_package(){
     ./configure --prefix=/usr   \
             --host=$LFS_TGT \

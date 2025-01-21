@@ -12,12 +12,10 @@ declare -a RUNTIME_DEPS=()
 src_file=$BASH_SOURCE
 
 # package details
-PACKAGE_NAME=binutils
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 MD5_SUM="a075178a9646551379bfb64040487715"
 DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/pub/binutils/releases/binutils-2.42.tar.xz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     sed '6009s/$add_dir//' -i ltmain.sh

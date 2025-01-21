@@ -14,8 +14,8 @@ src_file=$BASH_SOURCE
 # package details
 MD5_SUM="e7c178b97bf8f7ccd677b94d614f7b3c"
 DOWNLOAD_URLS[$MD5_SUM]="https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tar.xz"
-SRC_COMPRESSED_FILE=$(echo ${DOWNLOAD_URLS[$MD5_SUM]}  | rev | cut -d '/' -f 1 | rev)
-SRC_FOLDER=$(echo ${SRC_COMPRESSED_FILE} | rev | cut -d '.' -f 3- | rev)
+SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
+SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     ./configure --prefix=/usr   \
