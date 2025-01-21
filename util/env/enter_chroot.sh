@@ -11,6 +11,31 @@ if [[ $(whoami) != "root" ]]; then
     exit 1
 fi
 
+mount_virtual_filesystem() {
+    mount -v --bind /dev $LFS/dev
+    mount -vt devpts devpts -o gid=5,mode=0620 $LFS/dev/pts
+    mount -vt proc proc $LFS/proc
+    mount -vt sysfs sysfs $LFS/sys
+    mount -vt tmpfs tmpfs $LFS/run
+
+    if [ -h $LFS/dev/shm ]; then
+	mkdir -pv $LFS/$(readlink $LFS/dev/shm)
+    else
+	mount -t tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
+    fi
+
+    findmnt | grep $LFS
+}
+
+umount_virtual_filesystem() {
+    umount -v $LFS/dev/pts
+    mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
+    umount -v $LFS/dev
+    umount -v $LFS/proc
+    umount -v $LFS/sys
+    umount -v $LFS/run
+    findmnt | grep $LFS
+}
 
 enter_chroot() {
     mount_devices
@@ -23,21 +48,7 @@ enter_chroot() {
 
     # install ferninux scripts to run inside chrooted env
     mkdir -pv $LFS/script
-    cp -pr $CHROOT_SCRIPTS_DIR/* $LFS/script/
-
-    mount -v --bind /dev $LFS/dev
-    mount -v --bind /dev/pts $LFS/dev/pts
-    mount -vt proc proc $LFS/proc
-    mount -vt sysfs sysfs $LFS/sys
-    mount -vt tmpfs tmpfs $LFS/run
-
-    if [ -h $LFS/dev/shm ]; then
-	mkdir -pv $LFS/$(readlink $LFS/dev/shm)
-    else
-	mount -t tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
-    fi
-
-    findmnt | grep $LFS
+    cp -vpr $CHROOT_SCRIPTS_DIR/* $LFS/script/
 
     # select a autorun script if AUTOINSTALL is set
     if [[ $AUTOINSTALL -eq 1 ]]; then
@@ -47,7 +58,10 @@ enter_chroot() {
     if [[ $INSTALL_KERNEL -eq 1 ]]; then
 	chroot_script="/script/kernel/build_linux_kernel.sh"
     fi
+
+    mount_virtual_filesystem
     
+    echo "Entering chroot env"
     chroot "$LFS" /usr/bin/env -i \
 	   HOME=/root \
 	   TERM="$TERM" \
@@ -59,20 +73,10 @@ enter_chroot() {
 	   INSTALLED_PACKAGES_FILE=$INSTALLED_PACKAGES_FILE \
 	   FERNINUX_KERNEL_VERSION=$FERNINUX_KERNEL_VERSION \
 	   USE_DEFAULT_KERNEL_CONFIG=$USE_DEFAULT_KERNEL_CONFIG \
-	   $(cat $BUILD_DIR/diskinfo) \
+	   $(cat $BUILD_DIR/diskinfo | grep '=') \
 	   DISK_DEVICE=$(losetup -j $BUILD_DIR/$VDISK_FILENAME | cut -d ':' -f1) \
 	   /bin/bash --login $chroot_script
-
-    echo "unmounting virtual filesystem"
-    umount -v $LFS/dev/pts
-    mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
-    umount -v $LFS/dev
-    umount -v $LFS/proc
-    umount -v $LFS/sys
-    umount -v $LFS/run
-
+    
+    umount_virtual_filesystem
     umount_devices
-
-    findmnt | grep $LFS
-
 }
