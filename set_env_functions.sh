@@ -6,3 +6,4 @@
 . $WORK_DIR/util/env/umount_devices.sh
 . $WORK_DIR/util/downloader/download_sources.sh
 . $WORK_DIR/util/env/enter_chroot.sh
+. $WORK_DIR/util/env/clean.sh
