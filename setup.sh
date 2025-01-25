@@ -19,6 +19,7 @@ while true; do
 		    "6" "Start QEMU" \
 		    "7" "Write image to disk" \
 		    "8" "Clear Project" \
+
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-

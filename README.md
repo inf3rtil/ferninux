@@ -1,40 +1,41 @@
 # Ferninux
 
 ## Description
-This project contains scripts and tools to create a raw disk image with a fully functional linux system, based on Linux From Scratch Project
+This project contains scripts and tools to create a raw disk image with a fully functional linux system, based on Linux From Scratch Project and deployable on a virtual machine or a physical disk drive
+- 100% shell script
+- minimal config for linux 6.4
+- UEFI support by default
+- fully customizable by editing set_env_vars.sh file and build recipes
+- build based on single recipes
+
 ***
-## Prepare the env
+## Main setup
+![menu](https://github.com/feferreira/ferninux/assets/8690564/72fb425b-d946-4afa-8922-4452b097dbc3)
 
-Every time you want to use the project, change the env variables to your custom values in `set_env_vars.sh` and apply to the shell using `source`
+## Final System
+![linux](https://github.com/feferreira/ferninux/assets/8690564/9548fca6-8271-4b23-ac3a-05176303ee50)
 
-`~$source set_env_vars.sh`
+## 1 - Create Project
+- Create raw disk image with partitions and filesystem
+- Download required sources
+- Add special user to build cross toolchain
 
-Theres two ways of execute the scripts, use root account (sourcing set_env_vars.sh) or `sudo -E script...`
+## 2 - Build Cross-Toolchain
+- Build GCC as special user with a clean env
 
-## 1 - Create a raw disk image with the partitions needed:
+## 3 - Build Linux system
+- chroot into virtual image
+- build temporary tools
+- build basic system
+- build Linux kernel
+- deploy baisc system config files
+- install GRUB
 
-`util/create_env.sh`
+## 4 - Start QEMU
+- run a virtual machine to test new system
 
-## 2 - Create a user to build temporary tools
+## 5 - Write image to disk
+- dump the virtual disk image to a physical disk
 
-`util/add_lfs_user.sh`
-
-## 3 - Download the sources
-
-`util/get_sources.sh`
-
-## 4 - Build Cross Toolchain (as lfs user)
-
-`script/build_cross_toolchain.sh`
-
-## 5 - Enter chroot
-
-`util/enter_chroot.sh`
-
-## 6 - Build entire system
-
-`ferninux.sh`
-
-## 7 - Exit chroot, and start a qemu vm with your new linux
-
-`util/start_qemu.sh`
+## 6 - Clear Project
+- remove all created files
