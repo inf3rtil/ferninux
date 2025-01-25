@@ -65,10 +65,10 @@ while true; do
 	6 )
 	    echo "TODO: not ready"
 	    ;;
-	6 )
+	7 )
 	    echo "TODO: not ready"
 	    ;;
-	7 )
+	8 )
 	    clear_env
 	    ;;
     esac
