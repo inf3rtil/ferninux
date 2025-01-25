@@ -7,10 +7,13 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     exit 1
 fi
 
-losetup -D
-rm -rfv $BUILD_DIR
-if [[ $KEEP_DOWNLOAD_FILES -eq 0 ]]; then
-    rm -rfv $DOWNLOAD_DIR
-fi
-rm -rfv $BACKUP_DIR
-userdel $LFS_USER
+
+clear_env(){
+    losetup -D
+    rm -rfv $BUILD_DIR
+    if [[ $KEEP_DOWNLOAD_FILES -eq 0 ]]; then
+	rm -rfv $DOWNLOAD_DIR
+    fi
+    rm -rfv $BACKUP_DIR
+    userdel $LFS_USER
+}
