@@ -55,3 +55,6 @@ EOF
 fi
 
 cat /boot/grub/grub.cfg
+/script/basic_system/finish_install.sh
+
+
