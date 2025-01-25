@@ -11,8 +11,6 @@ declare -a BUILD_DEPS=()
 declare -a RUNTIME_DEPS=()
 
 # package details
-PACKAGE_NAME=essential-files
-VERSION=$(echo ${src_file} | rev | cut -d '/' -f 1 | cut -d '-' -f 1 | cut -d '.' -f 2- | rev)
 unset MD5_SUM
 unset SRC_COMPRESSED_FILE
 unset SRC_FOLDER
