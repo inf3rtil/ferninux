@@ -6,9 +6,6 @@ DIALOG_ESC=255
 . set_env_vars.sh
 . set_env_functions.sh
 
-set -e
-
-
 while true; do
     exec 3>&1
     selection=$(dialog \
@@ -18,9 +15,11 @@ while true; do
 		    "2" "Build Cross-Toolchain" \
 		    "3" "Build Root filesystem" \
 		    "4" "Build Linux Kernel" \
-		    "5" "Start QEMU" \
-		    "6" "Write image to disk" \
-		    "7" "Clear Project(CAUTION)" \
+		    "5" "Install bootloader" \
+		    "6" "Start QEMU" \
+		    "7" "Write image to disk" \
+		    "8" "Clear Project" \
+
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-
@@ -59,13 +58,18 @@ while true; do
 	    unset INSTALL_KERNEL
 	    ;;
 	5 )
+	    export INSTALL_BOOTLOADER=1
+	    enter_chroot
+	    unset INSTALL_BOOTLOADER
+	    ;;
+	6 )
 	    echo "TODO: not ready"
 	    ;;
 	6 )
 	    echo "TODO: not ready"
 	    ;;
 	7 )
-	    $WORK_DIR/util/clean.sh
+	    clear_env
 	    ;;
     esac
     echo "Press any key to continue"

@@ -59,6 +59,10 @@ enter_chroot() {
 	chroot_script="/script/kernel/build_linux_kernel.sh"
     fi
 
+    if [[ $INSTALL_BOOTLOADER -eq 1 ]]; then
+	chroot_script="/script/bootloader/install_bootloader.sh"
+    fi
+
     mount_virtual_filesystem
     
     echo "Entering chroot env"

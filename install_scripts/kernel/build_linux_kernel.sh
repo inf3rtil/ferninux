@@ -32,7 +32,7 @@ else
     cd $SOURCES_ROOT_DIR/$KERNEL_SRC_FOLDER
     make mrproper
     make defconfig
-    #cp $CONFIG ./.config
+    cp $CONFIG ./.config
     make menuconfig
     make $MAKEFLAGS
     make modules_install

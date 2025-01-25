@@ -5,17 +5,17 @@ set -e
 echo 12.0-systemd > /etc/lfs-release
 
 cat > /etc/lsb-release << "EOF"
-DISTRIB_ID="Linux From Scratch"
-DISTRIB_RELEASE="12.0-systemd"
+DISTRIB_ID="Ferninux"
+DISTRIB_RELEASE="1.0-systemd"
 DISTRIB_CODENAME="ferninux"
-DISTRIB_DESCRIPTION="Linux From Scratch"
+DISTRIB_DESCRIPTION="Ferninux"
 EOF
 
 cat > /etc/os-release << "EOF"
-NAME="Linux From Scratch"
-VERSION="12.0-systemd"
-ID=lfs
-PRETTY_NAME="Linux From Scratch 12.0-systemd"
+NAME="Ferninux"
+VERSION="1.0-systemd"
+ID=ferninux
+PRETTY_NAME="Ferninux LFS based 1.0-systemd"
 VERSION_CODENAME="ferninux"
 EOF
 
