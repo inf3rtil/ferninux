@@ -73,7 +73,8 @@ EOF" $LFS_USER
 	echo "$VDISK_FILENAME not found"
 	echo "Please create env before lfs user"
     fi
-
-    usermod -aG $LFS_USER $(stat -c "%G" $WORK_DIR/cross_toolchain/build_cross_toolchain.sh)
+    
+    echo "add $LFS_USER to $(stat -c "%G" $WORK_DIR) group"
+    usermod -aG $(stat -c "%G" $WORK_DIR) $LFS_USER
 
 }
