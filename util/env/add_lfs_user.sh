@@ -74,4 +74,6 @@ EOF" $LFS_USER
 	echo "Please create env before lfs user"
     fi
 
+    usermod -aG $LFS_USER $(stat -c "%G" $WORK_DIR/cross_toolchain/build_cross_toolchain.sh)
+
 }
