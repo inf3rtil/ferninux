@@ -6,6 +6,7 @@ DIALOG_ESC=255
 . set_env_vars.sh
 . set_env_functions.sh
 
+
 while true; do
     exec 3>&1
     selection=$(dialog \
@@ -19,7 +20,6 @@ while true; do
 		    "6" "Start QEMU" \
 		    "7" "Write image to disk" \
 		    "8" "Clear Project" \
-
 		    2>&1 1>&3)
     exit_status=$?
     exec 3>&-
