@@ -19,7 +19,7 @@ SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
     mkdir -pv /usr/share/fonts/unifont &&
-	gunzip -c ../unifont-15.1.04.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
+	gunzip -c ../../unifont-15.1.04.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
     unset {C,CPP,CXX,LD}FLAGS
     echo depends bli part_gpt > grub-core/extra_deps.lst
     ./configure --prefix=/usr        \

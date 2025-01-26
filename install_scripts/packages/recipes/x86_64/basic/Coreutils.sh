@@ -18,7 +18,7 @@ SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-    patch -Np1 -i ../coreutils-9.4-i18n-1.patch
+    patch -Np1 -i ../../coreutils-9.4-i18n-1.patch
     sed -e '/n_out += n_hold/,+4 s|.*bufsize.*|//&|' \
 	-i src/split.c
     autoreconf -fiv

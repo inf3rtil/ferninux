@@ -18,7 +18,7 @@ SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
 config_source_package(){
-    patch -Np1 -i ../bash-5.2.21-upstream_fixes-1.patch
+    patch -Np1 -i ../../bash-5.2.21-upstream_fixes-1.patch
     ./configure --prefix=/usr             \
 		--without-bash-malloc     \
 		--with-installed-readline \
