@@ -42,7 +42,7 @@ EOF
     install -v -dm755 /usr/share/doc/python-3.12.2/html
 
     tar --no-same-owner \
-	-xvf ../python-3.12.2-docs-html.tar.bz2
+	-xvf ../../python-3.12.2-docs-html.tar.bz2
     cp -R --no-preserve=mode python-3.12.2-docs-html/* \
        /usr/share/doc/python-3.12.2/html
 }

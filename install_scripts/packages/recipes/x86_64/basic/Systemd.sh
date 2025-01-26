@@ -24,7 +24,7 @@ SRC_FOLDER=$PACKAGE_NAME-$VERSION
 config_source_package(){
     sed -i -e 's/GROUP="render"/GROUP="video"/' \
 	-e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
-    patch -Np1 -i ../systemd-255-upstream_fixes-1.patch
+    patch -Np1 -i ../../systemd-255-upstream_fixes-1.patch
     mkdir -p build
     cd       build
 
@@ -60,7 +60,7 @@ test_source_package(){
 
 install_source_package(){
     ninja install
-    tar -xf ../../systemd-man-pages-255.tar.xz \
+    tar -xf ../../../systemd-man-pages-255.tar.xz \
 	--no-same-owner --strip-components=1   \
 	-C /usr/share/man
     systemd-machine-id-setup
