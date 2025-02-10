@@ -5,7 +5,7 @@ set -e
 SCRIPT=$(realpath -s "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
-echo "auto installing ferninux"
+echo "auto build ferninux"
 
 $SCRIPT_PATH/temp_tools/build_temp_tools.sh
 $SCRIPT_PATH/packages/install_basic_system.sh
