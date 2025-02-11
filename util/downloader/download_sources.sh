@@ -11,33 +11,44 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
     exit 1
 fi
 
-# 1 - get download urls and checksum hash of all recipes
-download_sources() {
-    
+function create_download_list() {
     rm $TEMP/recipe_list.txt | true
-    rm $TEMP/checksum.md5 | true
     declare -a recipes_path=()
     declare -a recipe_files=()
     recipes_path+=($WORK_DIR/cross_toolchain/recipes/$FERNINUX_TARGET_ARCH)
     recipes_path+=($WORK_DIR/install_scripts/temp_tools/recipes/$FERNINUX_TARGET_ARCH)
     recipes_path+=($WORK_DIR/install_scripts/packages/recipes/$FERNINUX_TARGET_ARCH/basic)
 
-    echo "Downloading sources..."
     for recipe_path in "${recipes_path[@]}"
     do
 	echo "get recipe files from $recipe_path"
 	find $recipe_path -name "*.sh" >> $TEMP/recipe_list.txt
     done
+}
 
-    # 2 - download packages
+
+
+function copy_sources_to_disk() {
+    mount_devices
+    mkdir -pv $LFS/sources
+    chmod -v a+wt $LFS/sources
+    cp -vr $DOWNLOAD_DIR/* $LFS/sources/
+    umount_devices
+}
+
+
+
+function download_sources() {
+    rm $TEMP/checksum.md5 | true
+    
     while read recipe; do
 	. $recipe
 	for md5 in "${!DOWNLOAD_URLS[@]}"
 	do
 	    if [[ -v SRC_COMPRESSED_FILE ]]; then
 		url="${DOWNLOAD_URLS[$md5]}"
-		echo "Url:$url"
-		echo "File:$SRC_COMPRESSED_FILE"
+		echo "Get:$SRC_COMPRESSED_FILE"
+		echo "From:$url"
 		echo "MD5:$md5"
 		if [ ! -f $DOWNLOAD_DIR/$(basename ${url}) ]; then
 		    wget -v --show-progress $url --continue --directory-prefix=$DOWNLOAD_DIR
@@ -52,16 +63,8 @@ download_sources() {
 
     set -e
 
-    # 3 - verify md5
     pushd $DOWNLOAD_DIR
     md5sum -c $TEMP/checksum.md5
     popd
-
-    # 4 - copy downloaded files to root
-    mount_devices
-    mkdir -pv $LFS/sources
-    chmod -v a+wt $LFS/sources
-    cp -vr $DOWNLOAD_DIR/* $LFS/sources/
-    umount_devices
 
 }

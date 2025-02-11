@@ -39,7 +39,9 @@ while true; do
 	1 )
 	    create_isolated_env
 	    add_isolated_user
+	    create_download_list
 	    download_sources
+	    copy_sources_to_disk
 	    ;;
 	2 )
 	    mount_devices
