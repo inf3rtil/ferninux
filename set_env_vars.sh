@@ -32,7 +32,6 @@ export VDISK_PATH=$BUILD_DIR/$VDISK_FILENAME
 export TARGET_PHY_DISK=' '
 
 # Downloader
-export KEEP_DOWNLOAD_FILES=1
 export DOWNLOADED_FILES=$WORK_DIR/dowloads/download_success
 export DOWNLOAD_DIR=$WORK_DIR/downloads
 
@@ -42,3 +41,7 @@ export ENV_VARS_EXPORTED=1
 
 # Distrib
 export INSTALLED_PACKAGES_FILE=/packages.install
+
+# Clean
+export KEEP_DOWNLOAD_FILES=1
+export KEEP_IMAGE=1 #TODO
