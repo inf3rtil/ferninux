@@ -12,7 +12,7 @@ declare -a RUNTIME_DEPS=()
 
 # package details
 MD5_SUM="67e051268d0c475ea773822f7500d0e5"
-DOWNLOAD_URLS[$MD5_SUM]="https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+DOWNLOAD_URLS[$MD5_SUM]="https://sources.openwrt.org/bzip2-1.0.8.tar.gz"
 DOWNLOAD_URLS["6a5ac7e89b791aae556de0f745916f7f"]="https://www.linuxfromscratch.org/patches/lfs/12.1/bzip2-1.0.8-install_docs-1.patch"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
