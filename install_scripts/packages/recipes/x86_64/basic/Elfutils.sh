@@ -12,7 +12,7 @@ declare -a RUNTIME_DEPS=()
 
 # package details
 MD5_SUM="79ad698e61a052bea79e77df6a08bc4b"
-DOWNLOAD_URLS[$MD5_SUM]="https://sourceware.org/ftp/elfutils/0.190/elfutils-0.190.tar.bz2"
+DOWNLOAD_URLS[$MD5_SUM]="https://ftp.kr.freebsd.org/pub/cygwin.com/elfutils/0.190/elfutils-0.190.tar.bz2"
 SRC_COMPRESSED_FILE=$(basename ${DOWNLOAD_URLS[$MD5_SUM]})
 SRC_FOLDER=${SRC_COMPRESSED_FILE%.*.*}
 
