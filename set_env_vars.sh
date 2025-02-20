@@ -45,3 +45,6 @@ export INSTALLED_PACKAGES_FILE=/packages.install
 # Clean
 export KEEP_DOWNLOAD_FILES=1
 export KEEP_IMAGE=1 #TODO
+
+# Cross Toolchain
+export BACKUP_CROSS_TOOLCHAIN=1
