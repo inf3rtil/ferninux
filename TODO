@@ -1,1 +1,4 @@
--move config files to recipes, all scripts/conf/programs must be a recipe
+Update for 2026
+- create a local cache for packages
+- create a new model for recipes
+- use metapackages for base system and configs
