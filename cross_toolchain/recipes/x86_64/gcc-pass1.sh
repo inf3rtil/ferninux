@@ -33,7 +33,7 @@ config_source_package(){
         -i.orig gcc/config/i386/t-linux64
     ;;
     esac
-
+    LFS_TGT=$(uname -m)-lfs-linux-gnu #FIX
     mkdir -v build
     cd       build
     ../configure                  \
