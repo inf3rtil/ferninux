@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# prepare env for build
 set -e
 
 if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
@@ -9,45 +8,42 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     exit 1
 fi
 
-if [[ $(whoami) != $LFS_USER ]]; then
-    echo "run this script as $LFS_USER user"
-    exit 1
-fi
+build_cross_toolchain()
+{
+    mount_devices
+    SCRIPT=$(realpath -s "$0")
+    SCRIPT_PATH=$(dirname "$SCRIPT")
+    CROSS_TOOLCHAIN_RECIPES=$SCRIPT_PATH/cross_toolchain/recipes/$FERNINUX_TARGET_ARCH
+    SOURCES_ROOT_DIR=$LFS/sources
+    cd $CROSS_TOOLCHAIN_RECIPES
 
-SCRIPT=$(realpath -s "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-CROSS_TOOLCHAIN_RECIPES=$SCRIPT_PATH/recipes/$FERNINUX_TARGET_ARCH
-SOURCES_ROOT_DIR=$LFS/sources
-cd $CROSS_TOOLCHAIN_RECIPES
+    # declare recipes
+    declare recipes=()
+    #recipes+=(binutils-pass1)
+    #recipes+=(gcc-pass1)
+    recipes+=(linux-headers)
+    recipes+=(glibc)
+    recipes+=(libstdc++)
+    recipes+=(m4)
+    recipes+=(ncurses)
+    recipes+=(bash)
+    recipes+=(coreutils)
+    recipes+=(diffutils)
+    recipes+=(file)
+    recipes+=(findutils)
+    recipes+=(gawk)
+    recipes+=(grep)
+    recipes+=(gzip)
+    recipes+=(make)
+    recipes+=(patch)
+    recipes+=(sed)
+    recipes+=(tar)
+    recipes+=(xz)
+    recipes+=(binutils-pass2)
+    recipes+=(gcc-pass2)
 
-# declare recipes
-declare recipes=()
-recipes+=(binutils-pass1)
-recipes+=(gcc-pass1)
-recipes+=(linux-headers)
-recipes+=(glibc)
-recipes+=(libstdc++)
-recipes+=(m4)
-recipes+=(ncurses)
-recipes+=(bash)
-recipes+=(coreutils)
-recipes+=(diffutils)
-recipes+=(file)
-recipes+=(findutils)
-recipes+=(gawk)
-recipes+=(grep)
-recipes+=(gzip)
-recipes+=(make)
-recipes+=(patch)
-recipes+=(sed)
-recipes+=(tar)
-recipes+=(xz)
-recipes+=(binutils-pass2)
-recipes+=(gcc-pass2)
-
-# build cross compiler
-for file in "${recipes[@]}"
-do
+    for file in "${recipes[@]}"
+    do
         . ./"$file.sh"
 	echo "extracting files from $SRC_COMPRESSED_FILE"
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
@@ -58,6 +54,8 @@ do
 	install_source_package
 	rm -rf $SOURCES_ROOT_DIR/$SRC_FOLDER
 	cd $CROSS_TOOLCHAIN_RECIPES
-done
+    done
+    umount_devices
+}
 
 

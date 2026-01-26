@@ -5,7 +5,7 @@ DIALOG_ESC=255
 
 . set_env_vars.sh
 . set_env_functions.sh
-
+. cross_toolchain/build_cross_toolchain.sh
 
 while true; do
     exec 3>&1
@@ -39,8 +39,6 @@ while true; do
 	1 )
 	    create_isolated_env
 	    echo "INFO: Isolated env DONE!"
-	    add_isolated_user
-	    echo "INFO: Isolated user DONE!"
 	    create_download_list
 	    echo "INFO: download list DONE!"
 	    download_sources
@@ -49,10 +47,7 @@ while true; do
 	    echo "INFO: Copy sources to disk DONE!"
 	    ;;
 	2 )
-	    mount_devices
-	    sudo --preserve-env=WORK_DIR,LFS_USER,ENV_VARS_EXPORTED,LFS,MAKEFLAGS,FERNINUX_TARGET_ARCH -u $LFS_USER \
-		 bash -c 'source ~/.bashrc && $WORK_DIR/cross_toolchain/build_cross_toolchain.sh'
-	    umount_devices
+	    build_cross_toolchain
 	    ;;
 	3 )
 	    export AUTOINSTALL=1

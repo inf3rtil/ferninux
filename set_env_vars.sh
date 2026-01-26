@@ -42,3 +42,6 @@ export ENV_VARS_EXPORTED=1
 
 # Distrib
 export INSTALLED_PACKAGES_FILE=/packages.install
+
+export LFS_TGT=$(uname -m)-lfs-linux-gnu
+export PATH=$LFS/tools/bin:$PATH
