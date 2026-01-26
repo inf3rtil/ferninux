@@ -20,7 +20,7 @@ export BACKUP_FILE=ferninux_backup.tar.xz
 export LFS_USER=ferninux
 
 # Disk
-export VDISK_SIZE_GB=15
+export VDISK_SIZE_GB=10
 export VDISK_FILENAME=ferninux_$INIT_SYSTEM\_$FERNINUX_TARGET_ARCH.img
 export VDISK_LABEL=gpt
 export VDISK_BIOS_PART=p1

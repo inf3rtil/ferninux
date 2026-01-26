@@ -14,16 +14,22 @@ if [[ $(whoami) != "root" ]]; then
     exit 1
 fi
 
-create_isolated_env(){
-
-    echo "creating ferninux base directories"
+create_base_dirs(){
+    echo "EXEC: create base dirs... -------------------------------------------"
+    
     mkdir -pv $BUILD_DIR
     mkdir -pv $TEMP
     mkdir -pv $LFS
     mkdir -pv $BACKUP_DIR
     mkdir -pv $DOWNLOAD_DIR
 
+    echo "DONE: create base dirs ----------------------------------------------"
+}
 
+
+create_virtual_disk(){
+
+    echo "EXEC: create virtual disk -------------------------------------------"
     if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
 	echo "$VDISK_FILENAME already created"
     else
@@ -49,23 +55,29 @@ create_isolated_env(){
 	    parted -s $VDISK_PATH set 1 bios_grub on
 	fi
 
-	disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
-	uefi_part=$disk_loop$VDISK_EFI_PART
-	root_part=$disk_loop$VDISK_ROOT_PART
-	boot_part=$disk_loop$VDISK_BOOT_PART
+	disk_loop=$(losetup --partscan --show --verbose --find $BUILD_DIR/$VDISK_FILENAME)
+	echo "created loop device: $disk_loop"
+	echo $(lsblk --raw --output "MAJ:MIN" --noheadings $disk_loop | tail -n +2)
 	
+	loop=$(echo $disk_loop | cut -d '/' -f3)
+    
+	partx -u $disk_loop 
+	grep ${loop}p /proc/partitions | while read major minor blocks name; do
+	    [ -b /dev/$name ] || mknod /dev/$name b $major $minor
+	done
+
 	echo "formating partitions"
-	mkfs.ext2 -v $boot_part
-	mkfs.ext4 -v $root_part
+	mkfs.ext2 -v $disk_loop$VDISK_BOOT_PART
+	mkfs.ext4 -v $disk_loop$VDISK_ROOT_PART
 	if test $USE_UEFI -eq 1; then
-	    mkfs.vfat -v -F32 $uefi_part
+	    mkfs.vfat -v -F32 $disk_loop$VDISK_EFI_PART
 	fi
 
 	echo "mounting root partition"
-	mount -v -t ext4 $root_part $LFS
+	mount -v -t ext4 $disk_loop$VDISK_ROOT_PART $LFS
 	mkdir -pv $LFS/boot
 	echo "mounting boot partition"
-	mount -v -t ext2 $boot_part $LFS/boot
+	mount -v -t ext2 $disk_loop$VDISK_BOOT_PART $LFS/boot
 	echo "creating directories"
 	if test $USE_UEFI -eq 1; then
 	    mkdir -pv $LFS/boot/efi
@@ -94,10 +106,16 @@ create_isolated_env(){
 	fi
 
 	echo "cleaning"
-	umount -v $boot_part
-	umount -v $root_part
+	umount -v $disk_loop$VDISK_BOOT_PART
+	umount -v $disk_loop$VDISK_ROOT_PART
 	losetup --verbose -d $disk_loop
-	
     fi
+    echo "DONE: create virtual disk -------------------------------------------"
+}
 
+
+
+create_isolated_env(){
+    create_base_dirs
+    create_virtual_disk
 }

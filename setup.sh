@@ -38,10 +38,15 @@ while true; do
     case $selection in
 	1 )
 	    create_isolated_env
+	    echo "INFO: Isolated env DONE!"
 	    add_isolated_user
+	    echo "INFO: Isolated user DONE!"
 	    create_download_list
+	    echo "INFO: download list DONE!"
 	    download_sources
+	    echo "INFO: download sources DONE!"
 	    copy_sources_to_disk
+	    echo "INFO: Copy sources to disk DONE!"
 	    ;;
 	2 )
 	    mount_devices

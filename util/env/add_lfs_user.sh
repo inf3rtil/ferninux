@@ -2,6 +2,9 @@
 
 set -e
 
+
+
+
 if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
     echo "Env variables not found, probable solutions:"
     echo "1 - source set_env_vars.sh"
@@ -10,7 +13,7 @@ if [[ $ENV_VARS_EXPORTED -ne 1 ]]; then
 fi
 
 add_isolated_user(){
-
+    echo "EXEC: add lfs user"
     if test $(cut -d: -f1 /etc/group | grep $LFS_USER) == $LFS_USER; then
 	echo "group found"
     else
@@ -49,26 +52,14 @@ EOF" $LFS_USER
     su -c "cat ~/.bashrc" $LFS_USER
 
     if test -f "$BUILD_DIR/$VDISK_FILENAME"; then
-	umount_devices
-	echo "$VDISK_FILENAME found"
-	echo "mounting loop device"
-	disk_loop=$(losetup --partscan --show --verbose --find $VDISK_PATH)
-	root_part=$disk_loop$VDISK_ROOT_PART
-	boot_part=$disk_loop$VDISK_BOOT_PART
-
-	echo "mounting root partition "
-	mount -v -t ext4 $root_part $LFS
-	echo "mounting boot partition"
-	mount -v -t ext2 $boot_part $LFS/boot    
+	mount_devices
 	
 	chown -v $LFS_USER $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
 	case $(uname -m) in
 	    x86_64) chown -v $LFS_USER $LFS/lib64 ;;
 	esac
 
-	umount -v $boot_part
-	umount -v $root_part
-	losetup --verbose -d $disk_loop
+	umount_devices
     else
 	echo "$VDISK_FILENAME not found"
 	echo "Please create env before lfs user"
@@ -77,4 +68,5 @@ EOF" $LFS_USER
     echo "add $LFS_USER to $(stat -c "%G" $WORK_DIR) group"
     usermod -aG $(stat -c "%G" $WORK_DIR) $LFS_USER
 
+    echo "DONE: add lfs user "
 }

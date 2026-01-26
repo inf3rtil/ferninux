@@ -12,6 +12,7 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 function create_download_list() {
+    echo "Creating download list"
     rm $TEMP/recipe_list.txt | true
     declare -a recipes_path=()
     declare -a recipe_files=()
@@ -50,6 +51,7 @@ function download_sources() {
 		echo "Get:$SRC_COMPRESSED_FILE"
 		echo "From:$url"
 		echo "MD5:$md5"
+		url="${url/ftp.gnu.org/ftp.fau.de}"
 		if [ ! -f $DOWNLOAD_DIR/$(basename ${url}) ]; then
 		    wget -v --show-progress $url --continue --directory-prefix=$DOWNLOAD_DIR
 		else

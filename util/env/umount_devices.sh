@@ -10,6 +10,7 @@ if [[ -z $ENV_VARS_EXPORTED ]]; then
 fi
 
 umount_devices() {
+    echo "umount devices..."
     if test $USE_UEFI -eq 1; then
 	device_uefi=$(mount | grep $LFS/boot/efi | cut -d ' ' -f1)
 	if [[ -n $device_uefi ]]; then
@@ -42,7 +43,7 @@ umount_devices() {
 	echo "no loop devices found"
     fi
 
-    losetup -D
+    #losetup -D
     losetup
     echo "devices unmounted!"
 
