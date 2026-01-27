@@ -2,15 +2,8 @@
 
 set -e
 
-if [[ -z $ENV_VARS_EXPORTED ]]; then
-    echo "Env variables not found, probable solutions:"
-    echo "1 - source set_env_vars.sh"
-    echo "2 - use sudo -E flag"
-    exit 1
-fi
-
 umount_devices() {
-    echo "umount devices..."
+    echo "EXEC: umount devices ------------------------------------------------"
     if test $USE_UEFI -eq 1; then
 	device_uefi=$(mount | grep $LFS/boot/efi | cut -d ' ' -f1)
 	if [[ -n $device_uefi ]]; then
@@ -43,8 +36,6 @@ umount_devices() {
 	echo "no loop devices found"
     fi
 
-    #losetup -D
-    losetup
-    echo "devices unmounted!"
+    echo "DONE: umount devices ------------------------------------------------"
 
 }
