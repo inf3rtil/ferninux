@@ -17,4 +17,5 @@ RUN apt install -y \
     libc6-dev \
     python3 \
     gawk \
-    bison
+    bison \
+    jq

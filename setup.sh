@@ -5,7 +5,7 @@ DIALOG_ESC=255
 
 . set_env_vars.sh
 . set_env_functions.sh
-. cross_toolchain/build_cross_toolchain.sh
+. cross_toolchain/build_cross_toolchain.sh #TODO; dont source here.
 
 while true; do
     exec 3>&1
@@ -39,9 +39,7 @@ while true; do
 	1 )
 	    create_isolated_env
 	    echo "INFO: Isolated env DONE!"
-	    create_download_list
-	    echo "INFO: download list DONE!"
-	    download_sources
+	    download_source_packages
 	    echo "INFO: download sources DONE!"
 	    copy_sources_to_disk
 	    echo "INFO: Copy sources to disk DONE!"
